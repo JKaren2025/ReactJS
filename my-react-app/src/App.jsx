@@ -1,7 +1,10 @@
+import Encabezado from "./Encabezado";
+
 function App() {
 
   return (
     <div>
+      <Encabezado /> 
       <h1> 5°A EVND</h1>
       <h2> Maestro: Ricardo Luna Santos</h2>
       <h2>Alumna: Johana Karen Barragan Marquez</h2>
