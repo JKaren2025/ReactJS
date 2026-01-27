@@ -17,7 +17,7 @@ function App() {
 }
 
 function UserComponent() {
-  const nombre = 'Johana'; /*CONSTpara hacer una costante, que siempre su valor es el mismo*/
+  const nombre = 'Johana Karen'; /*CONSTpara hacer una costante, que siempre su valor es el mismo*/
   const apellidos = 'Barragan Marquez';
   const nombrecompleto = <h2>El nombre es: {nombre} y sus apellidos son: {apellidos}</h2>; /*mostrar el valor de una contante o variable y para eso se muestran a traves de llaves*/
   return <h1>User Component {nombrecompleto}</h1>;
