@@ -1,12 +1,75 @@
 h2{
-    color:rgb(216, 85, 183);
+                color:rgb(216, 85, 183);
 }
 h1{
-    color:rgb(173, 122, 221);
+                color:rgb(173, 122, 221);
 }
 .Encabezado {
-    background-color: rgb(111, 194, 233);
+                background-color: rgb(111, 194, 233);
 }
 .Logo img{
-    width: 150px;
+                width: 150px;
+}
+
+/* Menu styling with active state */
+.menu ul {
+        display: flex;
+        gap: 18px;
+        list-style: none;
+        margin: 10px 0;
+        padding: 0;
+        align-items: center;
+}
+.menu a {
+        color: #083047;
+        text-decoration: none;
+        font-weight: 600;
+        padding: 6px 10px;
+        border-radius: 6px;
+        transition: background-color 160ms ease, color 160ms ease, transform 120ms ease;
+}
+.menu a:hover,
+.menu a:focus {
+        color: #001f2b;
+        background-color: rgba(0,0,0,0.04);
+        transform: translateY(-2px);
+        outline: none;
+}
+.menu a.active,
+.menu a[aria-current="page"] {
+        color: #ffffff;
+        background: #d855b7;
+        box-shadow: 0 6px 18px rgba(216,85,183,0.18);
+}
+
+/* Social icons subtle interactivity */
+.Redes img {
+        width: 28px;
+        height: 28px;
+        margin-left: 8px;
+        border-radius: 6px;
+        transition: transform 120ms ease, box-shadow 120ms ease, filter 120ms ease;
+        cursor: pointer;
+}
+.Redes img:hover,
+.Redes img:focus {
+        transform: scale(1.08);
+        box-shadow: 0 6px 16px rgba(0,0,0,0.14);
+        filter: brightness(1.05);
+        outline: none;
+}
+.Redes img:active {
+        transform: scale(0.98);
+}
+
+.encabezado-banner {
+    max-width: 1200px;
+    margin: 0 auto 12px auto;
+    padding: 8px 20px 20px 20px;
+}
+
+.encabezado-banner h2 {
+    margin: 0;
+    color: var(--accent);
+    font-size: 1.1rem;
 }

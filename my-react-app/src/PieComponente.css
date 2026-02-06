@@ -1,0 +1,30 @@
+.pieDiv {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 20px;
+  padding: 20px;
+  background: #f4f4f4;
+  border-top: 1px solid #e0e0e0;
+}
+
+.pieIzqDiv, .pieDerDiv {
+  max-width: 50%;
+}
+
+.pieIzqDiv h4, .pieDerDiv h4 {
+  margin: 0 0 8px 0;
+}
+
+.pieIzqDiv p, .pieDerDiv p {
+  margin: 4px 0;
+  color: #333;
+}
+
+@media (max-width: 600px) {
+  .pieDiv {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .pieIzqDiv, .pieDerDiv { max-width: 100%; }
+}
