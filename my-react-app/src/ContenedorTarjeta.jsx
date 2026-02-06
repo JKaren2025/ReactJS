@@ -1,28 +1,32 @@
-import React from "react";
+import AcercaDe from "./Acercade";
+import PropTypes from 'prop-types';
 import "./ContenedorTarjeta.css";
-import logo_manualidades from "./assets/logo_manualidades.png";
-import logo_pintura from "./assets/logo_pintura.png";
-import logo_artes from "./assets/logo_artes.png";
+function ContenedorTarjeta({ vista }) {
+  const vistas={
+    "Inicio": <Inicio />,
+    "Acerca de": <AcercaDe />
+  }
+}
+return(
+  <div className="contenedorTarjetaDiv">
+    {vistas[vista]}
+  </div>
+);
 
-function ContenedorTarjeta() {
-  const cards = [
-    { id: 1, title: "Manualidades", text: "Descripción breve de la tarjeta 1", img: logo_manualidades },
-    { id: 2, title: "Pintura", text: "Descripción breve de la tarjeta 2", img: logo_pintura },
-    { id: 3, title: "Artes", text: "Descripción breve de la tarjeta 3", img: logo_artes },
-  ];
 
+function Inicio(){
   return (
-    <div className="contenedorDiv">
-      {cards.map((c) => (
-        <div key={c.id} className="tarjetaDiv">
-          {c.img ? <img src={c.img} alt={c.title} /> : null}
-          <h3>{c.title}</h3>
-          <p>{c.text}</p>
-          <a href="#">Ver más</a>
-        </div>
-      ))}
-    </div>
+    <>
+      <TarjetaComponent titulo="Java" descripcion = "lenguaje de programacion general, orientado"> </TarjetaComponent>
+      <TarjetaComponent titulo="Python" descripcion = "lenguaje de programacion general, orientado"> </TarjetaComponent>
+      <TarjetaComponent titulo="JavaScript" descripcion = "lenguaje de programacion general, orientado"> </TarjetaComponent>
+      <TarjetaComponent titulo="PHP" descripcion = "lenguaje de programacion general, orientado"> </TarjetaComponent>
+    </>
   );
 }
+
+ContenedorTarjeta.propTypes = {
+  vista: PropTypes.string.isRequired,
+};
 
 export default ContenedorTarjeta;

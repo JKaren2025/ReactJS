@@ -1,19 +1,19 @@
-import Encabezado from "./Encabezado";
+import { useState } from "react";
 import ContenedorTarjeta from "./ContenedorTarjeta";
-import PromosContenido from "./PromosContenido";
+import Encabezado from "./Encabezado";
 import PieComponente from "./PieComponente";
+import PromosContenido from "./PromosContenido";
+
 
 function App() {
-  return (
-    <div style={{ background: '#ffffff', color: '#000000' }}>
-      <Encabezado />
-
-      <div className="site-container" style={{ maxWidth: '1600px', margin: '0 auto', padding: 24 }}>
-        <ContenedorTarjeta />
+     const [vista, setVista]  = useState("Inicio");   
+   return(
+      <div> 
+        <Encabezado cambiarVista={setVista}/>
+        <ContenedorTarjeta vista={vista} />
         <PromosContenido />
         <PieComponente />
       </div>
-    </div>
   );
 }
 
