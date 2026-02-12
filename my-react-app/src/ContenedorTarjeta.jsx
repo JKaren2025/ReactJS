@@ -1,6 +1,37 @@
 import AcercaDe from "./AcercaDe";
+import Contacto from "./Contacto";
+import Galeria from "./Galeria";
+import Productos from "./Productos";
+import Sucursales from "./Sucursales";
 import PropTypes from 'prop-types';
 import "./ContenedorTarjeta.css";
+
+const inicioCards = [
+  {
+    titulo: "Manualidades Creativas",
+    descripcion: "Ideas practicas para decorar, regalar y emprender con estilo artesanal.",
+    imagenUrl:
+      "https://images.unsplash.com/photo-1452860606245-08befc0ff44b?auto=format&fit=crop&w=1200&q=80",
+  },
+  {
+    titulo: "Flores de Papel",
+    descripcion: "Disenos delicados para ramos y centros de mesa hechos completamente a mano.",
+    imagenUrl:
+      "https://images.unsplash.com/photo-1520763185298-1b434c919102?auto=format&fit=crop&w=1200&q=80",
+  },
+  {
+    titulo: "Flores de Limpiapipas",
+    descripcion: "Modelos coloridos y duraderos para recuerdos, detalles y decoraciones.",
+    imagenUrl:
+      "https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?auto=format&fit=crop&w=1200&q=80",
+  },
+  {
+    titulo: "Rosas de Liston",
+    descripcion: "Acabado elegante para arreglos finos, regalos especiales y eventos.",
+    imagenUrl:
+      "https://images.unsplash.com/photo-1513885535751-8b9238bd345a?auto=format&fit=crop&w=1200&q=80",
+  },
+];
 
 function TarjetaComponent({ titulo, descripcion, imagenUrl }) {
   return (
@@ -8,7 +39,7 @@ function TarjetaComponent({ titulo, descripcion, imagenUrl }) {
       {imagenUrl ? <img src={imagenUrl} alt={titulo} /> : null}
       <h3>{titulo}</h3>
       <p>{descripcion}</p>
-      <a href="#">Ver mas</a>
+      <a href="#">Descubrir</a>
     </div>
   );
 }
@@ -23,10 +54,25 @@ function ContenedorTarjeta({ vista }) {
   const vistas = {
     "Inicio": <Inicio />,
     "Acerca de": <AcercaDe />,
+    "Productos": <Productos />,
+    "Galeria": <Galeria />,
+    "Sucursales": <Sucursales />,
+    "Contacto": <Contacto />,
   };
 
   return (
-    <div className="contenedorDiv">
+    <div
+      className={`contenedorDiv ${
+        vista === "Inicio" ||
+        vista === "Productos" ||
+        vista === "Acerca de" ||
+        vista === "Galeria" ||
+        vista === "Sucursales" ||
+        vista === "Contacto"
+          ? "contenedorProductos"
+          : ""
+      }`}
+    >
       {vistas[vista] ?? <div>Seccion no disponible.</div>}
     </div>
   );
@@ -35,28 +81,26 @@ function ContenedorTarjeta({ vista }) {
 
 function Inicio(){
   return (
-    <>
-      <TarjetaComponent
-        titulo="Java"
-        descripcion="Lenguaje de programacion general, orientado"
-        imagenUrl="https://media.istockphoto.com/id/537485315/es/vector/vintage-con-flores-y-modernos-c%C3%ADrculo-marco-de-fondo-de-papel-de-artesan%C3%ADas.jpg?s=612x612&w=0&k=20&c=21SP_yadE3dZ6H7Sp8BUumFpXxDhnbTrkPv22UshgsU="
-      />
-      <TarjetaComponent
-        titulo="Python"
-        descripcion="Lenguaje de programacion general, orientado"
-        imagenUrl= "https://i.etsystatic.com/25242598/r/isla/84db6d/47046957/isla_500x500.47046957_oiby04bo.jpg"
-      />
-      <TarjetaComponent
-        titulo="JavaScript"
-        descripcion="Lenguaje de programacion general, orientado"
-        imagenUrl="https://m.media-amazon.com/images/I/71Pi8n0sxQL._UF894,1000_QL80_.jpg"
-      />
-      <TarjetaComponent
-        titulo="PHP"
-        descripcion="Lenguaje de programacion general, orientado"
-        imagenUrl="https://img2.elyerromenu.com/images/arte-regalo/ramo-de-rosas-eternas-a/img.webp"
-      />
-    </>
+    <section className="inicioSection">
+      <header className="inicioHeader">
+        <p className="inicioTag">Inspira tu creatividad</p>
+        <h2>Tecnicas artesanales que enamoran</h2>
+        <p>
+          Descubre proyectos hechos a mano para decorar, regalar y transformar
+          tu talento en nuevas oportunidades.
+        </p>
+      </header>
+      <div className="inicioGrid">
+        {inicioCards.map((card) => (
+          <TarjetaComponent
+            key={card.titulo}
+            titulo={card.titulo}
+            descripcion={card.descripcion}
+            imagenUrl={card.imagenUrl}
+          />
+        ))}
+      </div>
+    </section>
   );
 }
 

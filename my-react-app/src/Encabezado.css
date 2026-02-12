@@ -1,74 +1,115 @@
 .encabezadoDiv {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 20px;
-    padding: 14px 28px;
-    background: #f5fbff;
-    border-bottom: 1px solid #e1ecf4;
+  --crema: #f6efe5;
+  --cafe: #4b3427;
+  --terracota: #bb6f46;
+  --terracota-claro: #d29673;
+  --verde: #476a5b;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 14px 28px;
+  background:
+    radial-gradient(circle at 10% 10%, rgba(187, 111, 70, 0.16), transparent 30%),
+    radial-gradient(circle at 84% 4%, rgba(71, 106, 91, 0.14), transparent 26%),
+    linear-gradient(135deg, #fffdf8 0%, var(--crema) 100%);
+  border-bottom: 1px solid rgba(75, 52, 39, 0.12);
+  box-shadow: 0 8px 20px rgba(45, 27, 19, 0.08);
 }
 
 .Logo img {
-    width: 140px;
-    height: auto;
-    display: block;
+  width: 148px;
+  height: 64px;
+  object-fit: cover;
+  border-radius: 12px;
+  display: block;
+  box-shadow: 0 8px 16px rgba(45, 27, 19, 0.16);
 }
 
 .menuDiv ul {
-    display: flex;
-    gap: 16px;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    align-items: center;
-    flex-wrap: wrap;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
 .menuDiv li {
-    font-weight: 600;
-    color: #0c3d57;
-    padding: 8px 12px;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background-color 160ms ease, color 160ms ease, transform 120ms ease;
+  font-weight: 700;
+  color: var(--cafe);
+  padding: 9px 14px;
+  border-radius: 999px;
+  cursor: pointer;
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid rgba(75, 52, 39, 0.12);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, color 0.2s ease,
+    background 0.2s ease, border-color 0.2s ease;
 }
 
 .menuDiv li:hover {
-    background-color: #e7f3fb;
-    color: #062433;
-    transform: translateY(-1px);
+  transform: translateY(-2px);
+  color: #fff;
+  background: linear-gradient(90deg, var(--terracota), var(--terracota-claro));
+  border-color: rgba(187, 111, 70, 0.6);
+  box-shadow: 0 8px 14px rgba(66, 38, 24, 0.24);
 }
 
 .RedesDiv {
-    display: flex;
-    gap: 10px;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    align-items: center;
+  display: flex;
+  gap: 8px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  align-items: center;
+}
+
+.RedesDiv a {
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(75, 52, 39, 0.12);
+  background: rgba(255, 255, 255, 0.78);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.RedesDiv a:hover {
+  transform: translateY(-2px) scale(1.04);
+  border-color: rgba(187, 111, 70, 0.5);
+  box-shadow: 0 8px 12px rgba(45, 27, 19, 0.2);
 }
 
 .RedesDiv img {
-    width: 28px;
-    height: 28px;
-    border-radius: 6px;
-    transition: transform 120ms ease, box-shadow 120ms ease, filter 120ms ease;
+  width: 20px;
+  height: 20px;
+  border-radius: 0;
+  display: block;
 }
 
-.RedesDiv img:hover {
-    transform: scale(1.08);
-    box-shadow: 0 6px 16px rgba(0,0,0,0.14);
-    filter: brightness(1.05);
-}
+@media (max-width: 980px) {
+  .encabezadoDiv {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 14px 14px;
+  }
 
-@media (max-width: 900px) {
-    .encabezadoDiv {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 12px;
-    }
+  .Logo img {
+    width: 132px;
+    height: 58px;
+  }
 
-    .menuDiv ul {
-        gap: 10px;
-    }
+  .menuDiv ul {
+    gap: 8px;
+  }
+
+  .menuDiv li {
+    padding: 8px 12px;
+    font-size: 0.92rem;
+  }
 }

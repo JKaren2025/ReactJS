@@ -1,0 +1,123 @@
+.acercaDeSection {
+  --crema: #f7f0e6;
+  --durazno: #f4b183;
+  --terracota: #d97745;
+  --vino: #6b3e34;
+  --verde: #4e7a64;
+  --sombra: rgba(45, 27, 19, 0.18);
+
+  background:
+    radial-gradient(circle at 10% 20%, rgba(244, 177, 131, 0.45), transparent 36%),
+    radial-gradient(circle at 80% 10%, rgba(78, 122, 100, 0.26), transparent 32%),
+    linear-gradient(120deg, #fffdf9 0%, var(--crema) 100%);
+  width: 100%;
+  border-radius: 0;
+  margin: 18px 0 24px;
+  max-width: none;
+  overflow: hidden;
+  box-shadow: 0 14px 30px var(--sombra);
+}
+
+.acercaDeOverlay {
+  padding: 32px 28px;
+}
+
+.acercaDeHeader {
+  text-align: center;
+  color: var(--vino);
+  max-width: 850px;
+  margin: 0 auto 24px;
+}
+
+.acercaDeTag {
+  display: inline-block;
+  background: rgba(217, 119, 69, 0.16);
+  color: var(--terracota);
+  border: 1px solid rgba(217, 119, 69, 0.28);
+  padding: 6px 14px;
+  border-radius: 999px;
+  letter-spacing: 0.4px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.acercaDeHeader h2 {
+  margin: 10px 0;
+  font-size: clamp(1.8rem, 3vw, 2.5rem);
+}
+
+.acercaDeHeader p {
+  margin: 0;
+  line-height: 1.7;
+  font-size: 1.03rem;
+}
+
+.acercaDeGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  margin-top: 20px;
+}
+
+.acercaDeCard {
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(107, 62, 52, 0.12);
+  border-radius: 14px;
+  padding: 20px;
+  color: #4e342e;
+  backdrop-filter: blur(2px);
+}
+
+.acercaDeCard h3 {
+  margin: 0 0 8px;
+  color: var(--terracota);
+}
+
+.acercaDeCard p {
+  margin: 0;
+  line-height: 1.65;
+}
+
+.acercaDePilares {
+  margin-top: 22px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.acercaDePilar {
+  background: linear-gradient(180deg, #ffffff 0%, #fff7ef 100%);
+  border-left: 5px solid var(--durazno);
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 8px 16px rgba(107, 62, 52, 0.08);
+}
+
+.acercaDePilar h3 {
+  margin: 0 0 10px;
+  color: var(--verde);
+}
+
+.acercaDePilar p {
+  margin: 0;
+  line-height: 1.65;
+  color: #4e342e;
+}
+
+.acercaDePilar ul {
+  margin: 0;
+  padding-left: 18px;
+  color: #4e342e;
+  line-height: 1.6;
+}
+
+@media (max-width: 900px) {
+  .acercaDeGrid,
+  .acercaDePilares {
+    grid-template-columns: 1fr;
+  }
+
+  .acercaDeOverlay {
+    padding: 26px 18px;
+  }
+}

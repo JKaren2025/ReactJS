@@ -1,30 +1,57 @@
 .pieDiv {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: 20px;
-  padding: 20px;
-  background: #f4f4f4;
-  border-top: 1px solid #e0e0e0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+  padding: 20px 20px 14px;
+  background: linear-gradient(135deg, #fdf6ee 0%, #f6e8d8 100%);
+  border-top: 1px solid #d9bfa7;
+  box-shadow: 0 -6px 18px rgba(86, 55, 36, 0.08);
 }
 
-.pieIzqDiv, .pieDerDiv {
-  max-width: 50%;
+.pieCol {
+  background: rgba(255, 255, 255, 0.6);
+  border: 1px solid #e4cdb5;
+  border-radius: 10px;
+  padding: 12px;
 }
 
-.pieIzqDiv h4, .pieDerDiv h4 {
+.pieCol h4 {
   margin: 0 0 8px 0;
+  color: #6b3f2b;
 }
 
-.pieIzqDiv p, .pieDerDiv p {
+.pieCol p {
   margin: 4px 0;
-  color: #333;
+  color: #5a4638;
+  line-height: 1.5;
+}
+
+.pieCopy {
+  grid-column: 1 / -1;
+  border-top: 1px dashed #d8bfa8;
+  padding-top: 8px;
+}
+
+.pieCopy p {
+  margin: 0;
+  text-align: center;
+  color: #6a4d3c;
+  font-size: 0.92rem;
+}
+
+.pieNota {
+  grid-column: 1 / -1;
+}
+
+.pieNota p {
+  margin: 0;
+  text-align: center;
+  color: #7a5a45;
+  font-size: 0.86rem;
 }
 
 @media (max-width: 600px) {
   .pieDiv {
-    flex-direction: column;
-    align-items: stretch;
+    grid-template-columns: 1fr;
   }
-  .pieIzqDiv, .pieDerDiv { max-width: 100%; }
 }

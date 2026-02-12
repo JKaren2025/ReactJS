@@ -1,18 +1,35 @@
-import './PromosContenido.css';
-import promoImg from './assets/logo_promo.png';
+import Mapa from './Mapa';
+import "./PromosContenido.css";
 
 function PromosContenido() {
+  const coordenadas = {
+    lat: 20.17568321075411,
+    lng: -98.05175223980018,
+  };
+  const mapaLink = `https://www.google.com/maps/search/?api=1&query=${coordenadas.lat},${coordenadas.lng}`;
+
+  const promoImg =
+    "https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=1400&q=80";
+
   const style = {
-    backgroundImage: `linear-gradient(rgba(3,18,26,0.45), rgba(3,18,26,0.25)), url(${promoImg})`,
-    backgroundRepeat: 'no-repeat',
-    backgroundSize: 'cover',
-    backgroundPosition: 'center'
+    backgroundImage: `linear-gradient(rgba(58,35,22,0.54), rgba(58,35,22,0.32)), url(${promoImg})`,
+    backgroundRepeat: "no-repeat",
+    backgroundSize: "cover",
+    backgroundPosition: "center",
   };
 
   return (
     <div className="promosContenido" style={style}>
-      <h2>Promociones</h2>
-      <p>Contenido de promociones aquí</p>
+      <p className="promoTag">Edicion especial</p>
+      <h2>Temporada Creativa</h2>
+      <p>
+        Aprovecha paquetes especiales en kits de manualidades, flores artesanales
+        y materiales para tus proximos proyectos.
+      </p>
+      <p>Ubicacion promo: 20.17568321075411, -98.05175223980018</p>
+      <Mapa lat={coordenadas.lat} lng={coordenadas.lng} nombre_sucursal="Punto promocional principal" />
+      <a href={mapaLink} target="_blank" rel="noreferrer">Ver ubicacion de promo</a>
+      <a href="#">Ver ofertas</a>
     </div>
   );
 }

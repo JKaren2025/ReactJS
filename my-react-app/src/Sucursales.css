@@ -1,0 +1,135 @@
+.sucursalesSection {
+  width: 100%;
+  margin: 18px 0 24px;
+  padding: 30px 28px 26px;
+  background:
+    radial-gradient(circle at 9% 16%, rgba(187, 111, 70, 0.2), transparent 34%),
+    radial-gradient(circle at 86% 10%, rgba(71, 106, 91, 0.18), transparent 30%),
+    linear-gradient(135deg, #fffdf8 0%, #f6efe5 100%);
+  box-shadow: 0 14px 30px rgba(45, 27, 19, 0.14);
+}
+
+.sucursalesHeader {
+  text-align: center;
+  color: #4b3427;
+  max-width: 820px;
+  margin: 0 auto 20px;
+}
+
+.sucursalesTag {
+  display: inline-block;
+  margin: 0 0 8px;
+  padding: 6px 14px;
+  border-radius: 999px;
+  color: #fff;
+  font-size: 0.84rem;
+  letter-spacing: 0.4px;
+  background: linear-gradient(90deg, #bb6f46, #d29673);
+}
+
+.sucursalesHeader h2 {
+  margin: 4px 0 10px;
+  font-size: clamp(1.7rem, 3vw, 2.35rem);
+}
+
+.sucursalesHeader p {
+  margin: 0;
+  line-height: 1.7;
+}
+
+.sucursalesHeader a {
+  display: inline-block;
+  margin-top: 8px;
+  color: #bb6f46;
+  font-weight: 700;
+}
+
+.sucursalesGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.sucursalCard {
+  background: linear-gradient(180deg, #fffdfb 0%, #fff6ee 100%);
+  border: 1px solid rgba(75, 52, 39, 0.14);
+  border-radius: 14px;
+  padding: 16px 16px 14px;
+  box-shadow: 0 10px 20px rgba(45, 30, 22, 0.12);
+  transition: transform 0.28s ease, box-shadow 0.28s ease, border-color 0.28s ease;
+}
+
+.sucursalImagen {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 10px;
+  margin-bottom: 12px;
+  box-shadow: 0 8px 14px rgba(45, 30, 22, 0.16);
+}
+
+.sucursalCard:hover {
+  transform: translateY(-6px);
+  border-color: rgba(187, 111, 70, 0.38);
+  box-shadow: 0 16px 28px rgba(45, 30, 22, 0.18);
+}
+
+.sucursalCard h3 {
+  margin: 0 0 10px;
+  color: #4b3427;
+  font-size: 1.2rem;
+}
+
+.sucursalCard ul {
+  margin: 0;
+  padding-left: 18px;
+}
+
+.sucursalCard li {
+  list-style: none;
+  margin: 0 0 8px;
+}
+
+.sucursalCard a {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  color: #5f4333;
+  text-decoration: none;
+  line-height: 1.5;
+  padding: 8px 10px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.64);
+  border: 1px solid rgba(75, 52, 39, 0.1);
+  transition: background 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
+}
+
+.sucursalCard a span {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #bb6f46;
+  white-space: nowrap;
+}
+
+.sucursalCard a:hover {
+  transform: translateX(4px);
+  background: rgba(255, 255, 255, 0.95);
+  border-color: rgba(187, 111, 70, 0.34);
+}
+
+@media (max-width: 960px) {
+  .sucursalesGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 680px) {
+  .sucursalesSection {
+    padding: 22px 14px 18px;
+  }
+
+  .sucursalesGrid {
+    grid-template-columns: 1fr;
+  }
+}
