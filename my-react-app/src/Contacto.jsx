@@ -16,7 +16,7 @@ function Contacto() {
         <form className="contactoForm">
           <div className="campoGrupo">
             <label htmlFor="nombre">Nombre completo</label>
-            <input id="nombre" type="text" placeholder="Ej. Maria Lopez" />
+            <input id="nombre" type="text" placeholder="Ej. Johana Karen" />
           </div>
 
           <div className="campoDoble">
@@ -25,7 +25,7 @@ function Contacto() {
               <input
                 id="correo"
                 type="email"
-                placeholder="ejemplo@correo.com"
+                placeholder="240097@utxicotepec.edu.mx"
               />
             </div>
             <div className="campoGrupo">
@@ -99,7 +99,7 @@ function Contacto() {
 
       <aside className="contactoInfo">
         <img
-          src="https://images.unsplash.com/photo-1452860606245-08befc0ff44b?auto=format&fit=crop&w=900&q=80"
+          src="https://images.pexels.com/photos/34589291/pexels-photo-34589291.jpeg"
           alt="Mesa de trabajo de manualidades"
           className="contactoInfoImagen"
         />
@@ -109,7 +109,7 @@ function Contacto() {
         </p>
         <ul>
           <li>
-            <strong>WhatsApp:</strong> +52 222 000 0000
+            <strong>WhatsApp:</strong> +52 000 000 0000
           </li>
           <li>
             <strong>Correo:</strong> contacto@tallercreativo.com

@@ -8,7 +8,7 @@ const listaProductos = [
     categoria: "Eco artesanal",
     precio: "$320 MXN",
     imagenUrl:
-      "https://images.unsplash.com/photo-1452860606245-08befc0ff44b?auto=format&fit=crop&w=1200&q=80",
+      "https://i.etsystatic.com/20634225/r/il/f32612/2423745940/il_fullxfull.2423745940_bfe7.jpg",
   },
   {
     nombre: "Caja Regalo Personalizada",
@@ -17,7 +17,7 @@ const listaProductos = [
     categoria: "Decoracion",
     precio: "$280 MXN",
     imagenUrl:
-      "https://images.unsplash.com/photo-1513885535751-8b9238bd345a?auto=format&fit=crop&w=1200&q=80",
+      "https://images.pexels.com/photos/31884815/pexels-photo-31884815.jpeg",
   },
   {
     nombre: "Bouquet Eterno",
@@ -26,7 +26,7 @@ const listaProductos = [
     categoria: "Flores artesanales",
     precio: "$450 MXN",
     imagenUrl:
-      "https://images.unsplash.com/photo-1520763185298-1b434c919102?auto=format&fit=crop&w=1200&q=80",
+      "https://images.pexels.com/photos/18289694/pexels-photo-18289694.jpeg",
   },
   {
     nombre: "Set Creativo Infantil",
@@ -35,7 +35,7 @@ const listaProductos = [
     categoria: "Educativo",
     precio: "$260 MXN",
     imagenUrl:
-      "https://images.unsplash.com/photo-1513360371669-4adf3dd7dff8?auto=format&fit=crop&w=1200&q=80",
+      "https://img.freepik.com/foto-gratis/primer-mano-mujer-que-sostiene-pincel-paleta-colores-agua-cepillo-pintura-papel-tijera-sobre-fondo-rosa_23-2148137446.jpg?semt=ais_hybrid&w=740&q=80",
   },
   {
     nombre: "Pack Emprende Manualidades",
@@ -44,7 +44,7 @@ const listaProductos = [
     categoria: "Negocio creativo",
     precio: "$590 MXN",
     imagenUrl:
-      "https://images.unsplash.com/photo-1452860606245-08befc0ff44b?auto=format&fit=crop&w=1200&q=80",
+      "https://img.freepik.com/foto-gratis/tarjeta-colorido-libro-recuerdos-diferentes-elementos-decorativos_23-2147899179.jpg?semt=ais_hybrid&w=740&q=80",
   },
   {
     nombre: "Centro de Mesa Rustico",
@@ -53,7 +53,7 @@ const listaProductos = [
     categoria: "Hogar y eventos",
     precio: "$380 MXN",
     imagenUrl:
-      "https://images.unsplash.com/photo-1616047006789-b7af6377ff43?auto=format&fit=crop&w=1200&q=80",
+      "https://media.istockphoto.com/id/844209490/es/foto/decoraci%C3%B3n-de-la-recepci%C3%B3n-de-boda-r%C3%BAstica.jpg?s=612x612&w=0&k=20&c=0XHlHQfkbe1PNplZI-c4efJOmUedftJpbxlJW87soWE=",
   },
 ];
 

@@ -1,4 +1,4 @@
-import Mapa from './Mapa';
+import Mapa from "./Mapa";
 import "./PromosContenido.css";
 
 function PromosContenido() {
@@ -21,14 +21,19 @@ function PromosContenido() {
   return (
     <div className="promosContenido" style={style}>
       <p className="promoTag">Edicion especial</p>
-      <h2>Temporada Creativa</h2>
+      <h2>Promocion en temporada creativa</h2>
       <p>
         Aprovecha paquetes especiales en kits de manualidades, flores artesanales
         y materiales para tus proximos proyectos.
       </p>
-      <p>Ubicacion promo: 20.17568321075411, -98.05175223980018</p>
-      <Mapa lat={coordenadas.lat} lng={coordenadas.lng} nombre_sucursal="Punto promocional principal" />
-      <a href={mapaLink} target="_blank" rel="noreferrer">Ver ubicacion de promo</a>
+      <Mapa
+        lat={coordenadas.lat}
+        lng={coordenadas.lng}
+        nombre_sucursal="Punto promocional principal"
+      />
+      <a href={mapaLink} target="_blank" rel="noreferrer">
+        Ver ubicacion de la promocion
+      </a>
       <a href="#">Ver ofertas</a>
     </div>
   );

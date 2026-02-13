@@ -5,37 +5,37 @@ const galeriaItems = [
     titulo: "Ramo Primavera",
     tipo: "Flores de papel",
     imagenUrl:
-      "https://images.unsplash.com/photo-1520763185298-1b434c919102?auto=format&fit=crop&w=1400&q=80",
+      "https://images.pexels.com/photos/15868193/pexels-photo-15868193.jpeg",
   },
   {
     titulo: "Caja Vintage",
     tipo: "Empaque artesanal",
     imagenUrl:
-      "https://images.unsplash.com/photo-1513885535751-8b9238bd345a?auto=format&fit=crop&w=1400&q=80",
+      "https://images.pexels.com/photos/20065927/pexels-photo-20065927.jpeg",
   },
   {
     titulo: "Centro de Mesa",
     tipo: "Decoracion de eventos",
     imagenUrl:
-      "https://images.unsplash.com/photo-1463320726281-696a485928c7?auto=format&fit=crop&w=1400&q=80",
+      "https://images.pexels.com/photos/1676122/pexels-photo-1676122.jpeg",
   },
   {
     titulo: "Rosas de Liston",
     tipo: "Tecnica textil",
     imagenUrl:
-      "https://images.unsplash.com/photo-1457089328109-e5d9bd499191?auto=format&fit=crop&w=1400&q=80",
+      "https://images.pexels.com/photos/19376097/pexels-photo-19376097.jpeg",
   },
   {
     titulo: "Set Creativo",
     tipo: "Materiales reciclables",
     imagenUrl:
-      "https://images.unsplash.com/photo-1452860606245-08befc0ff44b?auto=format&fit=crop&w=1400&q=80",
+      "https://images.pexels.com/photos/32350702/pexels-photo-32350702.jpeg",
   },
   {
     titulo: "Bouquet Eterno",
     tipo: "Arreglo premium",
     imagenUrl:
-      "https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?auto=format&fit=crop&w=1400&q=80",
+      "https://images.pexels.com/photos/29400307/pexels-photo-29400307.jpeg",
   },
 ];
 

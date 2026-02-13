@@ -43,6 +43,18 @@
     margin: 0 0 10px;
 }
 
+.mapaInicio {
+    width: min(98vw, 1400px);
+    margin: 8px auto 16px;
+}
+
+.mapaInicio h2 {
+    margin: 0 0 10px;
+    font-size: 1.2rem;
+    color: #fff;
+    text-align: left;
+}
+
 .promosContenido a {
     color: #fff;
     text-decoration: none;

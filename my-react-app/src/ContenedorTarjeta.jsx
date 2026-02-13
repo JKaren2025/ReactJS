@@ -11,25 +11,25 @@ const inicioCards = [
     titulo: "Manualidades Creativas",
     descripcion: "Ideas practicas para decorar, regalar y emprender con estilo artesanal.",
     imagenUrl:
-      "https://images.unsplash.com/photo-1452860606245-08befc0ff44b?auto=format&fit=crop&w=1200&q=80",
+      "https://img.freepik.com/fotos-premium/bricolaje-suministros-artesania-multicolor-herramientas-sobre-fondo-amarillo-pasatiempo-mujeres-costura-bordado-manualidades-fieltro-albumes-recortes-copie-espacio_97867-424.jpg",
   },
   {
     titulo: "Flores de Papel",
     descripcion: "Disenos delicados para ramos y centros de mesa hechos completamente a mano.",
     imagenUrl:
-      "https://images.unsplash.com/photo-1520763185298-1b434c919102?auto=format&fit=crop&w=1200&q=80",
+      "https://cdn0.bodas.com.mx/vendor/6265/3_2/960/jpg/img-0840_5_166265.jpeg",
   },
   {
     titulo: "Flores de Limpiapipas",
     descripcion: "Modelos coloridos y duraderos para recuerdos, detalles y decoraciones.",
     imagenUrl:
-      "https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?auto=format&fit=crop&w=1200&q=80",
+      "https://m.media-amazon.com/images/I/71Pi8n0sxQL._UF894,1000_QL80_.jpg",
   },
   {
     titulo: "Rosas de Liston",
     descripcion: "Acabado elegante para arreglos finos, regalos especiales y eventos.",
     imagenUrl:
-      "https://images.unsplash.com/photo-1513885535751-8b9238bd345a?auto=format&fit=crop&w=1200&q=80",
+      "https://static.vecteezy.com/system/resources/thumbnails/072/585/067/small/a-single-pink-rose-on-a-white-cloth-free-photo.jpeg",
   },
 ];
 
