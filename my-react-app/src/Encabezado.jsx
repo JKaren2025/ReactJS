@@ -4,6 +4,7 @@ import instagram from "./assets/logo_instagram.png";
 import tiktok from "./assets/logo_tik-tok.png";
 import PropTypes from "prop-types";
 import "./Encabezado.css";
+import Clima from "./Clima";
 
 function Encabezado({ cambiarVista }) {
   return (
@@ -44,26 +45,14 @@ function Menu({ cambiarVista }) {
 function Redes() {
   return (
     <div className="RedesDiv">
-      <li>
-        <a href="#">
+      <ul>
           <img src={whatsapp} alt="WhatsApp" width="50" />
-        </a>
-      </li>
-      <li>
-        <a href="#">
           <img src={youtube} alt="YouTube" width="50" />
-        </a>
-      </li>
-      <li>
-        <a href="#">
           <img src={instagram} alt="Instagram" width="50" />
-        </a>
-      </li>
-      <li>
-        <a href="#">
           <img src={tiktok} alt="TikTok" width="50" />
-        </a>
-      </li>
+      </ul>
+      <Clima />
+
     </div>
   );
 }
