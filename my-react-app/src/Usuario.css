@@ -1,0 +1,79 @@
+.usuariosDiv {
+  width: 90%;
+  margin: 20px auto;
+  background: #ffffff;
+  padding: 16px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.usuariosTabla {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 1100px;
+  font-size: 15px;
+}
+
+.usuariosTabla th,
+.usuariosTabla td {
+  border: 1px solid #d9d9d9;
+  padding: 10px;
+  text-align: left;
+}
+
+.usuariosTabla th {
+  background-color: #1f2a44;
+  color: #ffffff;
+  font-weight: 700;
+}
+
+.usuariosTabla tbody tr:nth-child(even) {
+  background-color: #f8faff;
+}
+
+.usuariosTabla tbody tr:hover {
+  background-color: #eef3ff;
+}
+
+.usuariosTablaContenedor {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.accionesCelda {
+  white-space: nowrap;
+}
+
+.btnEditar,
+.btnEliminar {
+  border: none;
+  color: #fff;
+  padding: 8px 12px;
+  margin-right: 6px;
+  border-radius: 4px;
+  font-weight: 700;
+  font-size: 13px;
+  min-width: 84px;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+}
+
+.btnEditar {
+  background-color: #2d6cdf;
+}
+
+.btnEliminar {
+  background-color: #d9534f;
+}
+
+.btnEditar:hover,
+.btnEliminar:hover {
+  transform: translateY(-2px) scale(1.04);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  filter: brightness(1.05);
+}
+
+.btnEditar:active,
+.btnEliminar:active {
+  transform: translateY(0) scale(0.98);
+}

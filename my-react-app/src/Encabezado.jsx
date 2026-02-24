@@ -33,6 +33,8 @@ function Menu({ cambiarVista }) {
       <ul>
         <li onClick={() => cambiarVista("Inicio")}>Inicio</li>
         <li onClick={() => cambiarVista("Acerca de")}>Acerca de</li>
+        <li onClick={() => cambiarVista("Carritos")}>Carritos</li>
+        <li onClick={() => cambiarVista("Usuarios")}>Usuarios</li>
         <li onClick={() => cambiarVista("Productos")}>Productos</li>
         <li onClick={() => cambiarVista("Galeria")}>Galeria</li>
         <li onClick={() => cambiarVista("Sucursales")}>Sucursales</li>
@@ -46,13 +48,12 @@ function Redes() {
   return (
     <div className="RedesDiv">
       <ul>
-          <img src={whatsapp} alt="WhatsApp" width="50" />
-          <img src={youtube} alt="YouTube" width="50" />
-          <img src={instagram} alt="Instagram" width="50" />
-          <img src={tiktok} alt="TikTok" width="50" />
+        <img src={whatsapp} alt="WhatsApp" width="50" />
+        <img src={youtube} alt="YouTube" width="50" />
+        <img src={instagram} alt="Instagram" width="50" />
+        <img src={tiktok} alt="TikTok" width="50" />
       </ul>
       <Clima />
-
     </div>
   );
 }

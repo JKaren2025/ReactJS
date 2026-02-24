@@ -2,6 +2,8 @@ import AcercaDe from "./AcercaDe";
 import Contacto from "./Contacto";
 import Galeria from "./Galeria";
 import Productos from "./Productos";
+import Carritos from "./Carritos";
+import Usuarios from "./Usuarios";
 import Sucursales from "./Sucursales";
 import PropTypes from 'prop-types';
 import "./ContenedorTarjeta.css";
@@ -51,13 +53,18 @@ TarjetaComponent.propTypes = {
 };
 
 function ContenedorTarjeta({ vista }) {
+  const vistaNormalizada = (vista || "").trim().toLowerCase();
+
   const vistas = {
-    "Inicio": <Inicio />,
-    "Acerca de": <AcercaDe />,
-    "Productos": <Productos />,
-    "Galeria": <Galeria />,
-    "Sucursales": <Sucursales />,
-    "Contacto": <Contacto />,
+    "inicio": <Inicio />,
+    "acerca de": <AcercaDe />,
+    "usuarios": <Usuarios />,
+    "productos": <Productos />,
+    "carritos": <Carritos />,
+    "carrito": <Carritos />,
+    "galeria": <Galeria />,
+    "sucursales": <Sucursales />,
+    "contacto": <Contacto />,
   };
 
   return (
@@ -65,6 +72,8 @@ function ContenedorTarjeta({ vista }) {
       className={`contenedorDiv ${
         vista === "Inicio" ||
         vista === "Productos" ||
+        vista === "Carritos" ||
+        vista === "Usuarios" ||
         vista === "Acerca de" ||
         vista === "Galeria" ||
         vista === "Sucursales" ||
@@ -73,13 +82,12 @@ function ContenedorTarjeta({ vista }) {
           : ""
       }`}
     >
-      {vistas[vista] ?? <div>Seccion no disponible.</div>}
+      {vistas[vistaNormalizada] ?? <div>Seccion no disponible.</div>}
     </div>
   );
 }
 
-
-function Inicio(){
+function Inicio() {
   return (
     <section className="inicioSection">
       <header className="inicioHeader">
