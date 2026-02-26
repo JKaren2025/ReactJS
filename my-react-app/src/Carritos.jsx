@@ -23,6 +23,10 @@ function Carritos() {
     obtenerDatos();
   }, []);
 
+  const handleEliminar = (id) => {
+    setCarritos(carritos.filter((carrito) => carrito.id !== id));
+  };
+
   if (cargando) return <p>Cargando carritos...</p>;
   if (error) return <p>{error}</p>;
   if (carritos.length === 0) return <p>No hay carritos para mostrar.</p>;
@@ -39,8 +43,23 @@ function Carritos() {
             <h3>Productos</h3>
             <ul className="productosLista">
               {carrito.products.map((item, index) => (
-                <li key={`${item.productId}-${index}`}>
-                  Producto #{item.productId} - Cantidad: {item.quantity}
+                <li key={`${item.productId}-${index}`} className="productoItem">
+                  <span>Producto #{item.productId} - Cantidad: {item.quantity}</span>
+                  <button
+                    type="button"
+                    className="btnEliminarProducto"
+                    onClick={() => {
+                      const nuevosProductos = carrito.products.filter((_, i) => i !== index);
+                      setCarritos(
+                        carritos.map((c) =>
+                          c.id === carrito.id ? { ...c, products: nuevosProductos } : c
+                        )
+                      );
+                    }}
+                    title="Eliminar producto"
+                  >
+                    ✕
+                  </button>
                 </li>
               ))}
             </ul>

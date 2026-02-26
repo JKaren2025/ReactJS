@@ -8,6 +8,8 @@
     justify-content: center;
     border-radius: 0;
     color: #fff;
+    /* add a default background so text remains visible even without inline styles */
+    background-color: #222;
     box-shadow: 0 12px 28px rgba(45, 27, 19, 0.14);
     padding: 28px 18px;
     text-align: center;
@@ -69,5 +71,20 @@
 .promosContenido a:hover {
     transform: translateY(-2px);
     box-shadow: 0 10px 20px rgba(66, 38, 24, 0.38);
+}
+
+/* ensure embedded maps inside promotions get a reasonable size */
+.mapa-contenedor {
+    width: 100%;
+    height: 260px;
+    border-radius: 8px;
+    overflow: hidden;
+    margin: 12px 0;
+}
+
+.mapa-estado {
+    text-align: center;
+    padding: 40px 0;
+    color: #888;
 }
 

@@ -64,6 +64,47 @@
   margin-bottom: 4px;
 }
 
+.productoItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 0;
+}
+
+.productoItem span {
+  flex: 1;
+}
+
+.btnEliminarProducto {
+  border: none;
+  background: #dc3545;
+  color: #fff;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-weight: 700;
+  font-size: 14px;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+  flex-shrink: 0;
+  margin-left: 8px;
+}
+
+.btnEliminarProducto:hover {
+  transform: scale(1.08);
+  box-shadow: 0 4px 8px rgba(220, 53, 69, 0.35);
+  background: #c82333;
+}
+
+.btnEliminarProducto:active {
+  transform: scale(0.96);
+}
+
+
 .btnComprar {
   border: none;
   background: #f2cad6;
@@ -85,5 +126,41 @@
 }
 
 .btnComprar:active {
+  transform: translateY(0) scale(0.98);
+}
+
+/* Contenedor para botones lado a lado */
+.carrioBotones {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  margin-top: 14px;
+}
+
+/* Botón de eliminar (X rojo) */
+.btnEliminar {
+  border: none;
+  background: #dc3545;
+  color: #fff;
+  padding: 9px 14px;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 16px;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+}
+
+.btnEliminar:hover {
+  transform: translateY(-2px) scale(1.06);
+  box-shadow: 0 8px 16px rgba(220, 53, 69, 0.35);
+  background: #c82333;
+}
+
+.btnEliminar:active {
   transform: translateY(0) scale(0.98);
 }

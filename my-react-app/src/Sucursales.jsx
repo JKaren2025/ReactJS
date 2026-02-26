@@ -1,86 +1,51 @@
-import "./Sucursales.css";
+import Mapa from './Mapa';
+import RutaMapa from './RutaMapa';
+import './Sucursales.css';
 
-const sucursales = [
+// user-provided items; we'll maintain existing header text and structure below
+const SUCURSALES = [
   {
-    nombre: "Mexico",
-    imagenUrl:
-      "https://images.unsplash.com/photo-1518105779142-d975f22f1b0a?auto=format&fit=crop&w=1200&q=80",
-    lugares: [
-      "CDMX - Coyoacan",
-      "CDMX - Roma Norte",
-      "Guadalajara - Zapopan",
-      "Monterrey - San Pedro",
-    ],
+    // primera tarjeta: ahora ubicada en Huauchinango
+    nombre: 'Huauchinango',
+    direccion: 'Plaza principal, Huauchinango, Puebla',
+    telefono: '+52 782 000 0001',
+    imagen: '',
+    // coordenadas aproximadas de Huauchinango, Puebla
+    latitud: 20.1175,
+    longitud: -97.6638,
   },
   {
-    nombre: "Puebla",
-    imagenUrl:
-      "https://images.unsplash.com/photo-1585464231875-d9ef1f5ad396?auto=format&fit=crop&w=1200&q=80",
-    lugares: [
-      "Puebla Centro",
-      "Cholula",
-      "Angelopolis",
-      "Lomas de Angelopolis",
-    ],
+    nombre: 'Zacatlán',
+    direccion: 'Centro histórico, Zacatlán de las Manzanas, Puebla',
+    telefono: '+52 782 000 0002',
+    imagen: '',
+    // coordenadas aproximadas de Zacatlán
+    latitud: 19.9996,
+    longitud: -97.9716,
   },
   {
-    nombre: "Queretaro",
-    imagenUrl:
-      "https://images.unsplash.com/photo-1536152470836-b943b246224c?auto=format&fit=crop&w=1200&q=80",
-    lugares: [
-      "Santiago de Queretaro - Centro Historico",
-      "Juriquilla",
-      "Corregidora - Candiles",
-      "El Pueblito",
-    ],
+    nombre: 'Puebla',
+    direccion: 'Zócalo, Puebla de Zaragoza, Puebla',
+    telefono: '+52 782 000 0003',
+    imagen:
+      'https://images.unsplash.com/photo-1559126221-ae05a1d6ded2?auto=format&fit=crop&w=800&q=60',
+    // coordenadas aproximadas del centro de Puebla capital
+    latitud: 19.0426,
+    longitud: -98.2063,
   },
   {
-    nombre: "Jalisco",
-    imagenUrl:
-      "https://images.unsplash.com/photo-1612294037637-ec328d0e075e?auto=format&fit=crop&w=1200&q=80",
-    lugares: [
-      "Guadalajara - Centro",
-      "Zapopan - Andares",
-      "Tlaquepaque - Centro",
-      "Tlajomulco - Santa Anita",
-    ],
-  },
-  {
-    nombre: "Nuevo Leon",
-    imagenUrl:
-      "https://images.unsplash.com/photo-1543783207-ec64e4d95325?auto=format&fit=crop&w=1200&q=80",
-    lugares: [
-      "Monterrey - Centro",
-      "San Pedro Garza Garcia - Del Valle",
-      "Guadalupe - Linda Vista",
-      "Apodaca - Centro",
-    ],
-  },
-  {
-    nombre: "Veracruz",
-    imagenUrl:
-      "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=80",
-    lugares: [
-      "Veracruz - Boca del Rio",
-      "Xalapa - Centro",
-      "Coatzacoalcos - Centro",
-      "Cordoba - Centro",
-    ],
+    nombre: 'Querétaro',
+    direccion: 'Plaza de Armas, Santiago de Querétaro, Querétaro',
+    telefono: '+52 782 000 0004',
+    imagen: '',
+    // coordenadas aproximadas de Querétaro centro
+    latitud: 20.5888,
+    longitud: -100.3899,
   },
 ];
 
 function Sucursales() {
-  const coordenadasPrincipal = {
-    lat: 20.17568321075411,
-    lng: -98.05175223980018,
-  };
-  const linkPrincipal = `https://www.google.com/maps/search/?api=1&query=${coordenadasPrincipal.lat},${coordenadasPrincipal.lng}`;
-
-  const getMapsLink = (pais, lugar) => {
-    const query = encodeURIComponent(`${lugar}, ${pais}`);
-    return `https://www.google.com/maps/search/?api=1&query=${query}`;
-  };
-
+  // keep the original descriptive header from your earlier version
   return (
     <section className="sucursalesSection">
       <header className="sucursalesHeader">
@@ -90,41 +55,42 @@ function Sucursales() {
           Estamos creciendo para llevar creatividad, cursos y productos
           artesanales a mas ciudades.
         </p>
-        <p>
-          Punto principal: 20.17568321075411, -98.05175223980018
-        </p>
-        <a href={linkPrincipal} target="_blank" rel="noreferrer">
-          Ver punto principal en mapa
-        </a>
       </header>
 
-      <div className="sucursalesGrid">
-        {sucursales.map((sucursal) => (
-          <article className="sucursalCard" key={sucursal.nombre}>
-            <img
-              src={sucursal.imagenUrl}
-              alt={`Sucursal en ${sucursal.nombre}`}
-              className="sucursalImagen"
-            />
-            <h3>{sucursal.nombre}</h3>
-            <ul>
-              {sucursal.lugares.map((lugar) => (
-                <li key={lugar}>
-                  <a
-                    href={getMapsLink(sucursal.nombre, lugar)}
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    {lugar}
-                    <span>Ver en mapa</span>
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </article>
+      <div className="lista-sucursales">
+        {SUCURSALES.map((sucursal) => (
+          <TarjetaSucursal key={sucursal.nombre} {...sucursal} />
         ))}
       </div>
+
+      <RutaMapa sucursales={SUCURSALES} />
     </section>
+  );
+}
+
+function TarjetaSucursal({ nombre, direccion, telefono, imagen, latitud, longitud }) {
+  // if an image URL is provided, use it as a background on the article
+  const style = imagen
+    ? {
+        backgroundImage: `url(${imagen})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+      }
+    : {};
+
+  return (
+    <article className="sucursal" style={style}>
+      <div className="sucursalContent">
+        <h3>{nombre}</h3>
+        <p className="direccion">{direccion}</p>
+        <Mapa lat={latitud} lng={longitud} nombre_sucursal={nombre} />
+        <p className="coordenadas">
+          Lat: {latitud} | Lng: {longitud}
+        </p>
+        <p>{telefono}</p>
+        <a href="#">Ver mas</a>
+      </div>
+    </article>
   );
 }
 

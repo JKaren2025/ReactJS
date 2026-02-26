@@ -1,15 +1,13 @@
 
-import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
+import React, { useState, useEffect } from "react";
 
-const containerStyle = {
-    width: "100%",
-    height: "350px",
-};
+// simple component that shows current location using an iframe embed
 
 function MapaGeolocalizacion() {
     const [ubicacion, setUbicacion] = useState(null);
 
     useEffect(() => {
+        if (!navigator.geolocation) return;
         navigator.geolocation.getCurrentPosition(
             (position) => {
                 setUbicacion({
@@ -17,24 +15,33 @@ function MapaGeolocalizacion() {
                     lng: position.coords.longitude,
                 });
             },
-            (error) => console.error(error),
+            (error) => {
+                console.error(error);
+                setUbicacion(null);
+            },
             { enableHighAccuracy: true }
         );
     }, []);
 
+    if (!ubicacion) {
+        return <p className="mapa-estado">Obteniendo ubicación...</p>;
+    }
+
+    const src = `https://www.google.com/maps?q=${ubicacion.lat},${ubicacion.lng}&z=15&output=embed`;
     return (
-        <LoadScript googleMapsApiKey={import.meta.env.VITE_GOOGLE_MAPS_API_KEY}>
-            {ubicacion && (
-                <GoogleMap
-                    mapContainerStyle={containerStyle}
-                    center={ubicacion}
-                    zoom={15}
-                >
-                    <Marker position={ubicacion} />
-                </GoogleMap>
-            )}
-        </LoadScript>
+        <div className="mapa-contenedor">
+            <iframe
+                title="Ubicación actual"
+                src={src}
+                width="100%"
+                height="260"
+                style={{ border: 0 }}
+                allowFullScreen=""
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+            />
+        </div>
     );
 }
 
-export default MapaGeolocalizacion
+export default MapaGeolocalizacion;
