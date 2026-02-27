@@ -26,6 +26,17 @@ function Usuarios() {
   return (
     <div className="usuariosDiv">
       <h1>Catalogo Usuarios</h1>
+
+      <div className="usuarioFormCard">
+        <h2>Nuevo Usuario</h2>
+        <form className="usuariosFormulario">
+          <input type="text" name="username" placeholder="Username" />
+          <input type="email" name="email" placeholder="Email" />
+          <input type="password" name="password" placeholder="Password" />
+          <button type="button">Agregar usuario</button>
+        </form>
+      </div>
+
       <div className="usuariosTablaContenedor">
         <table className="usuariosTabla">
           <thead>
@@ -59,16 +70,10 @@ function Usuarios() {
                 <td>{usuario.address.geolocation.lat}</td>
                 <td>{usuario.address.geolocation.long}</td>
                 <td className="accionesCelda">
-                  <button
-                    type="button"
-                    className="btnEditar"
-                  >
+                  <button type="button" className="btnEditar">
                     Editar
                   </button>
-                  <button
-                    type="button"
-                    className="btnEliminar"
-                  >
+                  <button type="button" className="btnEliminar">
                     Eliminar
                   </button>
                 </td>
@@ -82,4 +87,3 @@ function Usuarios() {
 }
 
 export default Usuarios;
-
