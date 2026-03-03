@@ -1,0 +1,66 @@
+.divForm {
+  max-width: 420px;
+  margin: 18px auto;
+  padding: 16px;
+  border: 1px solid rgba(75, 52, 39, 0.14);
+  border-radius: 12px;
+  background:
+    radial-gradient(circle at 8% 10%, rgba(187, 111, 70, 0.12), transparent 30%),
+    linear-gradient(135deg, #fffdf8 0%, #f6efe5 100%);
+  box-shadow: 0 8px 18px rgba(45, 30, 22, 0.12);
+}
+
+.h1 {
+  text-align: center;
+  margin: 0 0 14px;
+  font-size: 24px;
+  color: #4b3427;
+}
+
+.formularioProductos,
+.formularioUsuarios {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.formularioProductos label,
+.formularioUsuarios label {
+  font-weight: 600;
+  color: #4b3427;
+}
+
+.formularioProductos input,
+.formularioUsuarios input {
+  border: 1px solid rgba(75, 52, 39, 0.2);
+  border-radius: 6px;
+  padding: 10px;
+  font-size: 14px;
+  background: #fffdfb;
+}
+
+.formularioProductos input:focus,
+.formularioUsuarios input:focus {
+  border-color: #be6d44;
+  box-shadow: 0 0 8px rgba(187, 111, 70, 0.25);
+  outline: none;
+}
+
+.formularioProductos button,
+.formularioUsuarios button {
+  border: none;
+  border-radius: 6px;
+  padding: 10px 12px;
+  font-weight: 700;
+  background: linear-gradient(90deg, #be6d44, #d4845f);
+  color: #fff;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+}
+
+.formularioProductos button:hover,
+.formularioUsuarios button:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 8px 16px rgba(187, 111, 70, 0.28);
+  filter: brightness(1.05);
+}

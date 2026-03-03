@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import api from './Services/api';
+import './RegistrarProductos.css';
 
-function RegistrarProductos() {
+function RegistrarProductos({}) {
   const [productos, setProductos] = useState({
     title: '',
     price: '',
@@ -35,46 +36,46 @@ function RegistrarProductos() {
   };
 
   return (
-    <div>
-      <h1>Registrar Productos</h1>
+    <div className="containerForm">
+      <h2>Registrar Productos</h2>
       <form onSubmit={handSubmit}>
+        <label>Titulo</label>
         <input
           type="text"
           name="title"
-          placeholder="Titulo"
           value={productos.title}
           onChange={handleChange}
           required
         />
+        <label>Precio</label>
         <input
           type="number"
           name="price"
-          placeholder="Precio"
           value={productos.price}
           onChange={handleChange}
           step="0.01"
           required
         />
+        <label>Descripcion</label>
         <input
           type="text"
           name="description"
-          placeholder="Descripcion"
           value={productos.description}
           onChange={handleChange}
           required
         />
+        <label>Categoria</label>
         <input
           type="text"
           name="category"
-          placeholder="Categoria"
           value={productos.category}
           onChange={handleChange}
           required
         />
+        <label>URL de imagen</label>
         <input
           type="text"
           name="image"
-          placeholder="URL de imagen"
           value={productos.image}
           onChange={handleChange}
           required

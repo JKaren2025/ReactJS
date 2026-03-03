@@ -133,7 +133,8 @@
   margin-top: auto;
 }
 
-.btnAñadir {
+.btnAñadir,
+.btnAnadir {
   flex: 1;
   border: none;
   background: linear-gradient(90deg, #be6d44, #d4845f);
@@ -147,13 +148,39 @@
   box-shadow: 0 4px 10px rgba(190, 109, 68, 0.25);
 }
 
-.btnAñadir:hover {
+.btnAñadir:hover,
+.btnAnadir:hover {
   background: linear-gradient(90deg, #a85a38, #c26b4d);
   transform: translateY(-3px);
   box-shadow: 0 8px 16px rgba(190, 109, 68, 0.4);
 }
 
-.btnAñadir:active {
+.btnAñadir:active,
+.btnAnadir:active {
+  transform: translateY(-1px);
+}
+
+.btnEditarProducto {
+  flex: 0.8;
+  border: none;
+  background: linear-gradient(90deg, #4a3428, #6e4a37);
+  color: #fff;
+  padding: 10px 14px;
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+  box-shadow: 0 4px 10px rgba(74, 52, 40, 0.25);
+}
+
+.btnEditarProducto:hover {
+  background: linear-gradient(90deg, #3a281f, #5a3d2f);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 16px rgba(74, 52, 40, 0.35);
+}
+
+.btnEditarProducto:active {
   transform: translateY(-1px);
 }
 

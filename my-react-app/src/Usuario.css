@@ -1,10 +1,26 @@
+.usuariosFormWrap,
+.ContenedorUsuarios {
+  width: 100%;
+  margin-bottom: 14px;
+}
+
 .usuariosDiv {
-  width: 90%;
-  margin: 20px auto;
-  background: #ffffff;
-  padding: 16px;
-  border-radius: 10px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  width: 100%;
+  margin: 10px 0 24px;
+  padding: 18px;
+  border-radius: 14px;
+  border: 1px solid rgba(75, 52, 39, 0.14);
+  background:
+    radial-gradient(circle at 8% 10%, rgba(187, 111, 70, 0.14), transparent 32%),
+    radial-gradient(circle at 92% 8%, rgba(79, 109, 93, 0.12), transparent 34%),
+    linear-gradient(135deg, #fffdf8 0%, #f6efe5 100%);
+  box-shadow: 0 10px 20px rgba(45, 30, 22, 0.12);
+}
+
+.usuariosDiv h1 {
+  margin: 0 0 12px;
+  color: #4b3427;
+  text-align: center;
 }
 
 .usuarioFormCard {
@@ -62,27 +78,30 @@
   border-collapse: collapse;
   min-width: 1100px;
   font-size: 15px;
+  background: #fffdfb;
+  border-radius: 10px;
+  overflow: hidden;
 }
 
 .usuariosTabla th,
 .usuariosTabla td {
-  border: 1px solid #d9d9d9;
+  border: 1px solid rgba(75, 52, 39, 0.14);
   padding: 10px;
   text-align: left;
 }
 
 .usuariosTabla th {
-  background-color: #1f2a44;
+  background-color: #4b3427;
   color: #ffffff;
   font-weight: 700;
 }
 
 .usuariosTabla tbody tr:nth-child(even) {
-  background-color: #f8faff;
+  background-color: #fff6ee;
 }
 
 .usuariosTabla tbody tr:hover {
-  background-color: #eef3ff;
+  background-color: #f4e8dd;
 }
 
 .usuariosTablaContenedor {
@@ -109,17 +128,17 @@
 }
 
 .btnEditar {
-  background-color: #2d6cdf;
+  background: linear-gradient(90deg, #4b3427, #6e4a37);
 }
 
 .btnEliminar {
-  background-color: #d9534f;
+  background: linear-gradient(90deg, #be6d44, #d4845f);
 }
 
 .btnEditar:hover,
 .btnEliminar:hover {
   transform: translateY(-2px) scale(1.04);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 8px 16px rgba(75, 52, 39, 0.22);
   filter: brightness(1.05);
 }
 
