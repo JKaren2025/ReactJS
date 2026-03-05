@@ -1,8 +1,9 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import api from './Services/api';
 import './RegistrarProductos.css';
 
-function RegistrarProductos({}) {
+function RegistrarProductos({ productoEditado, limpiarSeleccion, onActualizacionExitosa }) {
   const [productos, setProductos] = useState({
     title: '',
     price: '',
@@ -10,6 +11,7 @@ function RegistrarProductos({}) {
     category: '',
     image: '',
   });
+  const [mensaje, setMensaje] = useState('');
 
   const handleChange = (e) => {
     setProductos({
@@ -18,11 +20,36 @@ function RegistrarProductos({}) {
     });
   };
 
+  // when a product is selected for editing, populate the form
+  useEffect(() => {
+    if (productoEditado) {
+      setProductos({
+        title: productoEditado.title || '',
+        price: productoEditado.price || '',
+        description: productoEditado.description || '',
+        category: productoEditado.category || '',
+        image: productoEditado.image || '',
+      });
+      setMensaje('');
+    }
+  }, [productoEditado]);
+
   const handSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await api.post('/products', productos);
-      console.log('Producto registrado:', response.data);
+      if (productoEditado && productoEditado.id) {
+        // update existing product
+        const response = await api.put(`/products/${productoEditado.id}`, productos);
+        console.log('Producto actualizado:', response.data);
+        setMensaje('Producto actualizado correctamente.');
+        limpiarSeleccion();
+      } else {
+        const response = await api.post('/products', productos);
+        console.log('Producto registrado:', response.data);
+        setMensaje('Producto registrado correctamente.');
+      }
+
+      // clear form after submission
       setProductos({
         title: '',
         price: '',
@@ -30,14 +57,18 @@ function RegistrarProductos({}) {
         category: '',
         image: '',
       });
+
+      // notify parent to refresh list
+      onActualizacionExitosa();
     } catch (error) {
-      console.error('Error al registrar productos:', error);
+      console.error('Error al registrar o actualizar producto:', error);
     }
   };
 
   return (
     <div className="containerForm">
       <h2>Registrar Productos</h2>
+      {mensaje && <p className="formMensaje">{mensaje}</p>}
       <form onSubmit={handSubmit}>
         <label>Titulo</label>
         <input
@@ -80,10 +111,22 @@ function RegistrarProductos({}) {
           onChange={handleChange}
           required
         />
-        <button type="submit">Registrar Producto</button>
+        <button type="submit">
+          {productoEditado ? 'Actualizar Producto' : 'Registrar Producto'}
+        </button>
       </form>
     </div>
   );
 }
+
+RegistrarProductos.propTypes = {
+  productoEditado: PropTypes.object,
+  limpiarSeleccion: PropTypes.func.isRequired,
+  onActualizacionExitosa: PropTypes.func.isRequired,
+};
+
+RegistrarProductos.defaultProps = {
+  productoEditado: null,
+};
 
 export default RegistrarProductos;

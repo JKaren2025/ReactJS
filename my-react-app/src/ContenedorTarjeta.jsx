@@ -6,6 +6,7 @@ import Carritos from "./Carritos";
 import Usuarios from "./Usuarios";
 import Sucursales from "./Sucursales";
 import PropTypes from 'prop-types';
+import Login from "./Login";
 import "./ContenedorTarjeta.css";
 
 const inicioCards = [
@@ -65,6 +66,7 @@ function ContenedorTarjeta({ vista }) {
     "galeria": <Galeria />,
     "sucursales": <Sucursales />,
     "contacto": <Contacto />,
+    "login": <Login />,
   };
 
   return (

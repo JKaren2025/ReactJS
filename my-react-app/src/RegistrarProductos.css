@@ -1,7 +1,14 @@
 /* corrected selectors and layout for registration form */
 .containerForm{
-    max-width: 420px;
+    max-width: 480px;
     margin: 40px auto;
+    padding: 24px 28px;
+    border: 1px solid rgba(75, 52, 39, 0.14);
+    border-radius: 12px;
+    background:
+      radial-gradient(circle at 8% 10%, rgba(187, 111, 70, 0.12), transparent 30%),
+      linear-gradient(135deg, #fffdf8 0%, #f6efe5 100%);
+    box-shadow: 0 8px 18px rgba(45, 30, 22, 0.12);
 }
 .containerForm h2{
     text-align: center;
@@ -12,6 +19,13 @@
     display: flex;
     flex-direction: column;
     gap: 12px;  
+}
+
+.containerForm .formMensaje {
+    text-align: center;
+    margin: 0 0 12px;
+    color: #476a5b;
+    font-weight: 600;
 }
 .containerForm label {
     font-weight: 600;
