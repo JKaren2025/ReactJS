@@ -3,14 +3,18 @@ import ContenedorTarjeta from "./ContenedorTarjeta";
 import Encabezado from "./Encabezado";
 import PieComponente from "./PieComponente";
 import PromosContenido from "./PromosContenido";
+import { AuthProvider } from "./AuthContext";
 
 
 function App() {
      const [vista, setVista]  = useState("Inicio");   
+
    return(
       <div> 
-        <Encabezado cambiarVista={setVista}/>
-        <ContenedorTarjeta vista={vista} />
+        <AuthProvider>
+         <Encabezado cambiarVista={setVista}/>
+          <ContenedorTarjeta vista={vista} onLoginSuccess={() => setVista("Inicio")} />
+        </AuthProvider>
         {vista === "Inicio" && <PromosContenido />}
         <PieComponente />
       </div>

@@ -53,7 +53,7 @@ TarjetaComponent.propTypes = {
   imagenUrl: PropTypes.string,
 };
 
-function ContenedorTarjeta({ vista }) {
+function ContenedorTarjeta({ vista, onLoginSuccess }) {
   const vistaNormalizada = (vista || "").trim().toLowerCase();
 
   const vistas = {
@@ -66,7 +66,7 @@ function ContenedorTarjeta({ vista }) {
     "galeria": <Galeria />,
     "sucursales": <Sucursales />,
     "contacto": <Contacto />,
-    "login": <Login />,
+    "login": <Login onLoginSuccess={onLoginSuccess} />,
   };
 
   return (
@@ -116,6 +116,7 @@ function Inicio() {
 
 ContenedorTarjeta.propTypes = {
   vista: PropTypes.string.isRequired,
+  onLoginSuccess: PropTypes.func.isRequired,
 };
 
 export default ContenedorTarjeta;

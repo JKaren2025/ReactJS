@@ -5,6 +5,7 @@ import tiktok from "./assets/logo_tik-tok.png";
 import PropTypes from "prop-types";
 import "./Encabezado.css";
 import Clima from "./Clima";
+import { useAuth } from "./AuthContext";
 
 function Encabezado({ cambiarVista }) {
   return (
@@ -28,19 +29,26 @@ function Logo() {
 }
 
 function Menu({ cambiarVista }) {
+  const { isLoggedInm, logout} = useAuth(); //Obtenemos el estado de autenticación y la función de logout del contexto de autenticación  
   return (
     <nav className="menuDiv" aria-label="Navegacion principal">
       <ul>
         <li onClick={() => cambiarVista("Inicio")}>Inicio</li>
         <li onClick={() => cambiarVista("Acerca de")}>Acerca de</li>
-        <li onClick={() => cambiarVista("Carritos")}>Carritos</li>
-        <li onClick={() => cambiarVista("Usuarios")}>Usuarios</li>
         <li onClick={() => cambiarVista("Productos")}>Productos</li>
+        {isLoggedInm ? ( //Si el usuario está autenticado, muestra las opciones de menú para usuarios autenticados
+          <>
+            <li onClick={() => cambiarVista("Usuarios")}>Usuarios</li>
+            <li onClick={() => cambiarVista("Carritos")}>Carritos</li>
+            <li>Cerrar sesión</li>
+          </>):
+          (
+             <li onClick={() => cambiarVista("Login")}>Iniciar Sesión</li>
+          )}
         <li onClick={() => cambiarVista("Galeria")}>Galeria</li>
         <li onClick={() => cambiarVista("Sucursales")}>Sucursales</li>
         <li onClick={() => cambiarVista("Contacto")}>Contacto</li>
-        <li onClick={() => cambiarVista("Login")}>Login</li>
-      </ul>
+        <li>Cerrar sesión</li> 
     </nav>
   );
 }

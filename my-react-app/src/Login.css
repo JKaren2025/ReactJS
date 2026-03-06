@@ -78,6 +78,14 @@
   filter: brightness(1.05);
 }
 
+.loginForm button:disabled {
+  opacity: 0.75;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+  filter: none;
+}
+
 .loginOptions {
   margin-top: 16px;
   display: flex;
