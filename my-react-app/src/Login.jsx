@@ -1,100 +1,55 @@
 import React, { useState } from "react";
-import PropTypes from "prop-types";
 import api from "./Services/api";
 import "./Login.css";
+import { useAuth } from "./AuthContext";
 
-const logoUrl =
-  "https://t4.ftcdn.net/jpg/03/31/00/65/360_F_331006500_1JH3P15CpMS4zxT0m5UxodxS7xPf274u.jpg";
+const Login = ({chVista}) => {
+  const { login } = useAuth(); //Obtenemos la función de login del contexto de autenticación, consumo la funcion login para actualizar el estado de autenticación global después de una autenticación exitosa
+  const [username, setUsername] = useState(""); //Estado para almacenar el nombre de usuario ingresado
+  const [password, setPassword] = useState(""); //Estado para almacenar la contraseña ingresada
 
-function Login({ onLoginSuccess }) {
-  const [usuario, setUsuario] = useState("");
-  const [contrasena, setContrasena] = useState("");
-  const [cargando, setCargando] = useState(false);
-
-  const manejarLogin = async (event) => {
-    event.preventDefault();
-
-    if (!usuario.trim() || !contrasena.trim()) {
-      alert("Debes escribir usuario y contrasena.");
-      return;
-    }
-
-    setCargando(true);
-
+  const handlesubmit = async (e) => {
+    e.preventDefault(); //Prevenimos el comportamiento por defecto del formulario
+    const credenciales = { username, password }; //Creamos un objeto con las credenciales ingresadas
     try {
-      const respuesta = await api.get("https://fakestoreapi.com/users");
-      const usuarios = Array.isArray(respuesta.data) ? respuesta.data : [];
-
-      const existeUsuario = usuarios.find(
-        (item) => item.username === usuario.trim() && item.password === contrasena
-      );
-
-      if (existeUsuario) {
-        const authRespuesta = await api.post("https://fakestoreapi.com/auth/login", {
-          username: usuario.trim(),
-          password: contrasena,
-        });
-        const token = authRespuesta?.data?.token;
-        if (token) {
-          console.log("token:", token);
-        }
-        alert("Credenciales autorizadas.");
-        setTimeout(() => {
-          onLoginSuccess();
-        }, 200);
-        return;
+      const respuesta = await api.post('/auth/login', credenciales); //Hacemos una solicitud POST al endpoint de autenticación con las credenciales
+      if (respuesta.data.token) {
+        alert('Autenticación autorizada'); //Si la respuesta contiene un token, mostramos una alerta indicando que la autenticación fue autorizada  
+        chVista("Inicio"); //Cambiamos la vista a "Inicio" después de una autenticación exitosa
       }
-
-      alert("Credenciales invalidas.");
+      const data = respuesta.data; //Obtenemos los datos de la respuesta
+      if (data.token) {
+        console.log(respuesta.token); //Si la respuesta contiene un token, lo mostramos en la consola
+        login(data.token); //Llamamos a la función de login del contexto de autenticación con el token obtenido //Si la respuesta contiene un token, significa que la autenticación fue exito
+        alert('Autenticación autorizada'); //Mostramos una alerta indicando que la autenticación fue autorizada
+      } else {
+        alert('Credenciales invalidas'); //Si la respuesta no contiene un token, mostramos una alerta indicando que las credenciales son inválidas
+      }
     } catch (error) {
-      console.error("Error al validar credenciales:", error);
-      alert("Credenciales invalidas o error de servidor.");
-    } finally {
-      setCargando(false);
+      console.error('Error en la autenticación:', error);
+      alert('Error en la autenticación');
     }
   };
 
   return (
     <div className="loginContainer">
-      <div className="loginCard">
-        <h2>Iniciar sesion</h2>
-        <img className="profileImg" src={logoUrl} alt="Perfil" />
-
-        <form className="loginForm" onSubmit={manejarLogin}>
-          <label htmlFor="usuario">Usuario</label>
-          <input
-            id="usuario"
-            name="usuario"
-            type="text"
-            value={usuario}
-            onChange={(event) => setUsuario(event.target.value)}
-          />
-
-          <label htmlFor="contrasena">Contrasena</label>
-          <input
-            id="contrasena"
-            name="contrasena"
-            type="password"
-            value={contrasena}
-            onChange={(event) => setContrasena(event.target.value)}
-          />
-
-          <button type="submit" disabled={cargando}>
-            {cargando ? "Validando..." : "Acceder"}
-          </button>
-        </form>
-
-        <div className="loginOptions">
-          <div className="option">Crear cuenta</div>
-          <div className="option">Recuperar cuenta</div>
-        </div>
-      </div>
+      <form onSubmit={handlesubmit}>
+        <input
+          type="text"
+          placeholder="Usuario"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+        />
+        <input
+          type="password"
+          placeholder="Contraseña"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        <button type="submit">Iniciar Sesión</button>
+      </form>
     </div>
   );
-}
-
-Login.propTypes = {
-  onLoginSuccess: PropTypes.func.isRequired,
 };
 
 export default Login;

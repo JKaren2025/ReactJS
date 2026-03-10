@@ -29,26 +29,28 @@ function Logo() {
 }
 
 function Menu({ cambiarVista }) {
-  const { isLoggedInm, logout} = useAuth(); //Obtenemos el estado de autenticación y la función de logout del contexto de autenticación  
+  const { isLoggedInm, logout} = useAuth(); //Obtenemos el estado de autenticación y la función de logout del contexto de autenticación
+  const handleLogout = () => {
+    logout(); //Llamamos a la función de logout para cerrar la sesión del usuario
+    cambiarVista("Inicio"); //Mandamos al usuario a la vista de "Inicio" después de cerrar sesión
+  };  
   return (
     <nav className="menuDiv" aria-label="Navegacion principal">
       <ul>
         <li onClick={() => cambiarVista("Inicio")}>Inicio</li>
         <li onClick={() => cambiarVista("Acerca de")}>Acerca de</li>
         <li onClick={() => cambiarVista("Productos")}>Productos</li>
-        {isLoggedInm ? ( //Si el usuario está autenticado, muestra las opciones de menú para usuarios autenticados
-          <>
-            <li onClick={() => cambiarVista("Usuarios")}>Usuarios</li>
-            <li onClick={() => cambiarVista("Carritos")}>Carritos</li>
-            <li>Cerrar sesión</li>
-          </>):
-          (
-             <li onClick={() => cambiarVista("Login")}>Iniciar Sesión</li>
-          )}
         <li onClick={() => cambiarVista("Galeria")}>Galeria</li>
         <li onClick={() => cambiarVista("Sucursales")}>Sucursales</li>
-        <li onClick={() => cambiarVista("Contacto")}>Contacto</li>
-        <li>Cerrar sesión</li> 
+        {isLoggedInm ? ( //Si el usuario está autenticado, muestra las opciones de menú para usuarios autenticados
+          <>
+          <li onClick={() => cambiarVista("Usuarios")}>Usuarios</li>
+          <li onClick={() => cambiarVista("Carritos")}>Carritos</li>
+          <li onClick={handleLogout}>Cerrar sesión</li>
+          </>):(
+          <li onClick={() => cambiarVista("Login")}>Ingresar Sesión</li>
+        )}
+      </ul>
     </nav>
   );
 }
@@ -76,3 +78,33 @@ Encabezado.propTypes = {
 };
 
 export default Encabezado;
+
+
+
+
+ /* return (
+    <nav className="menuDiv" aria-label="Navegacion principal">
+      <ul>
+        <li onClick={() => cambiarVista("Inicio")}>Inicio</li>
+        <li onClick={() => cambiarVista("Acerca de")}>Acerca de</li>
+        <li onClick={() => cambiarVista("Productos")}>Productos</li>
+        {isLoggedInm ? ( //Si el usuario está autenticado, muestra las opciones de menú para usuarios autenticados
+          <>
+            <li onClick={() => cambiarVista("Usuarios")}>Usuarios</li>
+            <li onClick={() => cambiarVista("Carritos")}>Carritos</li>
+            <li>Cerrar sesión</li>
+          </>):
+          (
+             <li onClick={() => cambiarVista("Login")}>Iniciar Sesión</li>
+          )}
+        <li onClick={() => cambiarVista("Galeria")}>Galeria</li>
+        <li onClick={() => cambiarVista("Sucursales")}>Sucursales</li>
+        <li onClick={() => cambiarVista("Contacto")}>Contacto</li>
+        <li onClick={() => logout()}>Cerrar sesión</li> 
+        </>):(
+        <li onClick={() => cambiarVista("Login")}>Ingresar </li>
+        )}
+      </ul>
+    </nav>
+  );
+}*/

@@ -13,9 +13,9 @@ function App() {
       <div> 
         <AuthProvider>
          <Encabezado cambiarVista={setVista}/>
-          <ContenedorTarjeta vista={vista} onLoginSuccess={() => setVista("Inicio")} />
+         <ContenedorTarjeta vista={vista} />
         </AuthProvider>
-        {vista === "Inicio" && <PromosContenido />}
+        <PromosContenido />
         <PieComponente />
       </div>
   );
