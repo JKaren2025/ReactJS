@@ -8,14 +8,17 @@ import { AuthProvider } from "./AuthContext";
 
 function App() {
      const [vista, setVista]  = useState("Inicio");   
+     const handleLoginSuccess = () => {
+      setVista("Inicio");
+    };
 
    return(
       <div> 
         <AuthProvider>
          <Encabezado cambiarVista={setVista}/>
-         <ContenedorTarjeta vista={vista} />
+         <ContenedorTarjeta vista={vista} onLoginSuccess={handleLoginSuccess} chVista={setVista} />
         </AuthProvider>
-        <PromosContenido />
+        {vista === "Categorias" ? null : <PromosContenido />}
         <PieComponente />
       </div>
   );

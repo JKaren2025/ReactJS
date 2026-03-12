@@ -1,53 +1,82 @@
-import React, { useState } from "react";
+﻿import React, { useState } from "react";
 import api from "./Services/api";
 import "./Login.css";
 import { useAuth } from "./AuthContext";
 
-const Login = ({chVista}) => {
-  const { login } = useAuth(); //Obtenemos la función de login del contexto de autenticación, consumo la funcion login para actualizar el estado de autenticación global después de una autenticación exitosa
-  const [username, setUsername] = useState(""); //Estado para almacenar el nombre de usuario ingresado
-  const [password, setPassword] = useState(""); //Estado para almacenar la contraseña ingresada
+const Login = ({ chVista, onLoginSuccess }) => {
+  const { login } = useAuth();
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
 
   const handlesubmit = async (e) => {
-    e.preventDefault(); //Prevenimos el comportamiento por defecto del formulario
-    const credenciales = { username, password }; //Creamos un objeto con las credenciales ingresadas
+    e.preventDefault();
+    const credenciales = { username, password };
     try {
-      const respuesta = await api.post('/auth/login', credenciales); //Hacemos una solicitud POST al endpoint de autenticación con las credenciales
-      if (respuesta.data.token) {
-        alert('Autenticación autorizada'); //Si la respuesta contiene un token, mostramos una alerta indicando que la autenticación fue autorizada  
-        chVista("Inicio"); //Cambiamos la vista a "Inicio" después de una autenticación exitosa
-      }
-      const data = respuesta.data; //Obtenemos los datos de la respuesta
-      if (data.token) {
-        console.log(respuesta.token); //Si la respuesta contiene un token, lo mostramos en la consola
-        login(data.token); //Llamamos a la función de login del contexto de autenticación con el token obtenido //Si la respuesta contiene un token, significa que la autenticación fue exito
-        alert('Autenticación autorizada'); //Mostramos una alerta indicando que la autenticación fue autorizada
+      const respuesta = await api.post("/auth/login", credenciales);
+      const data = respuesta.data;
+      if (data?.token) {
+        login(data.token);
+        console.log("Token recibido:", data.token);
+        alert("Autenticacion autorizada");
+        if (typeof onLoginSuccess === "function") {
+          onLoginSuccess();
+        }
+        if (typeof chVista === "function") {
+          chVista("Inicio");
+        }
       } else {
-        alert('Credenciales invalidas'); //Si la respuesta no contiene un token, mostramos una alerta indicando que las credenciales son inválidas
+        alert("Credenciales invalidas");
       }
     } catch (error) {
-      console.error('Error en la autenticación:', error);
-      alert('Error en la autenticación');
+      console.error("Error en la autenticacion:", error);
+      alert("Error en la autenticacion");
     }
   };
 
   return (
     <div className="loginContainer">
-      <form onSubmit={handlesubmit}>
-        <input
-          type="text"
-          placeholder="Usuario"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-        />
-        <input
-          type="password"
-          placeholder="Contraseña"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <button type="submit">Iniciar Sesión</button>
-      </form>
+      <div className="loginCard">
+        <div className="profileImg" aria-hidden="true">
+          <svg viewBox="0 0 48 48" role="img" aria-label="Usuario">
+            <circle cx="24" cy="24" r="22" fill="none" strokeWidth="2" />
+            <circle cx="24" cy="18" r="7" fill="none" strokeWidth="2" />
+            <path
+              d="M10 38c3.5-7 24.5-7 28 0"
+              fill="none"
+              strokeWidth="2"
+              strokeLinecap="round"
+            />
+          </svg>
+        </div>
+        <h2>Iniciar sesion</h2>
+        <form className="loginForm" onSubmit={handlesubmit}>
+          <label htmlFor="login-usuario">Usuario</label>
+          <input
+            id="login-usuario"
+            type="text"
+            placeholder="Ingresa tu usuario"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+          />
+          <label htmlFor="login-password">Contrasena</label>
+          <input
+            id="login-password"
+            type="password"
+            placeholder="Ingresa tu contrasena"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <button type="submit">Acceder</button>
+        </form>
+        <div className="loginOptions">
+          <button type="button" className="option">
+            Crear cuenta
+          </button>
+          <button type="button" className="option">
+            Cambiar contrasena
+          </button>
+        </div>
+      </div>
     </div>
   );
 };

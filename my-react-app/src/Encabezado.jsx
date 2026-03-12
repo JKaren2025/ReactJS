@@ -29,7 +29,7 @@ function Logo() {
 }
 
 function Menu({ cambiarVista }) {
-  const { isLoggedInm, logout} = useAuth(); //Obtenemos el estado de autenticación y la función de logout del contexto de autenticación
+  const { isLoggedIn, logout } = useAuth(); //Obtenemos el estado de autenticación y la función de logout del contexto de autenticación
   const handleLogout = () => {
     logout(); //Llamamos a la función de logout para cerrar la sesión del usuario
     cambiarVista("Inicio"); //Mandamos al usuario a la vista de "Inicio" después de cerrar sesión
@@ -42,9 +42,10 @@ function Menu({ cambiarVista }) {
         <li onClick={() => cambiarVista("Productos")}>Productos</li>
         <li onClick={() => cambiarVista("Galeria")}>Galeria</li>
         <li onClick={() => cambiarVista("Sucursales")}>Sucursales</li>
-        {isLoggedInm ? ( //Si el usuario está autenticado, muestra las opciones de menú para usuarios autenticados
+        {isLoggedIn ? ( //Si el usuario está autenticado, muestra las opciones de menú para usuarios autenticados
           <>
           <li onClick={() => cambiarVista("Usuarios")}>Usuarios</li>
+          <li onClick={() => cambiarVista("Categorias")}>Categorias</li>
           <li onClick={() => cambiarVista("Carritos")}>Carritos</li>
           <li onClick={handleLogout}>Cerrar sesión</li>
           </>):(

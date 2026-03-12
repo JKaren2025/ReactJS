@@ -3,42 +3,55 @@
   justify-content: center;
   align-items: center;
   min-height: 80vh;
-  padding: 16px;
+  padding: 24px;
+  width: 100%;
+  background:
+    radial-gradient(circle at 12% 18%, rgba(187, 111, 70, 0.18), transparent 36%),
+    radial-gradient(circle at 88% 16%, rgba(71, 106, 91, 0.16), transparent 34%),
+    linear-gradient(135deg, #fffdf8 0%, #f6efe5 100%);
 }
 
 .loginCard {
   width: 100%;
-  max-width: 420px;
-  padding: 32px 28px;
-  border: 1px solid rgba(75, 52, 39, 0.14);
-  border-radius: 12px;
-  background:
-    radial-gradient(circle at 8% 10%, rgba(187, 111, 70, 0.12), transparent 30%),
-    linear-gradient(135deg, #fffdf8 0%, #f6efe5 100%);
-  box-shadow: 0 8px 18px rgba(45, 30, 22, 0.12);
+  max-width: 440px;
+  padding: 30px 32px;
+  border: 1px solid rgba(75, 52, 39, 0.16);
+  border-radius: 14px;
+  background: linear-gradient(180deg, #fffdfb 0%, #fff6ee 100%);
+  box-shadow: 0 12px 26px rgba(45, 30, 22, 0.16);
 }
 
 .loginCard h2 {
   text-align: center;
   margin: 0 0 18px;
-  font-size: 22px;
+  font-size: 20px;
   color: #4b3427;
+  text-transform: capitalize;
 }
 
 .loginCard .profileImg {
   display: block;
   margin: 0 auto 18px;
-  width: 96px;
-  height: 96px;
+  width: 84px;
+  height: 84px;
   border-radius: 50%;
-  object-fit: cover;
-  box-shadow: 0 4px 12px rgba(45, 30, 22, 0.14);
+  background: #ffffff;
+  border: 1px solid rgba(75, 52, 39, 0.2);
+  box-shadow: 0 6px 14px rgba(45, 30, 22, 0.12);
+  display: grid;
+  place-items: center;
+}
+
+.loginCard .profileImg svg {
+  width: 48px;
+  height: 48px;
+  stroke: #4b3427;
 }
 
 .loginForm {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 10px;
 }
 
 .loginForm label {
@@ -47,26 +60,27 @@
 }
 
 .loginForm input {
-  border: 1px solid rgba(75, 52, 39, 0.2);
-  border-radius: 6px;
-  padding: 10px;
+  border: 1px solid rgba(75, 52, 39, 0.28);
+  border-radius: 8px;
+  padding: 10px 12px;
   font-size: 14px;
-  background: #fffdfb;
+  background: #ffffff;
+  color: #4b3427;
 }
 
 .loginForm input:focus {
-  border-color: #be6d44;
-  box-shadow: 0 0 8px rgba(187, 111, 70, 0.25);
+  border-color: #bb6f46;
+  box-shadow: 0 0 0 3px rgba(187, 111, 70, 0.22);
   outline: none;
 }
 
 .loginForm button {
   margin-top: 8px;
   border: none;
-  border-radius: 6px;
+  border-radius: 10px;
   padding: 10px 12px;
   font-weight: 700;
-  background: linear-gradient(90deg, #be6d44, #d4845f);
+  background: linear-gradient(90deg, #4b3427, #6e4a37);
   color: #fff;
   cursor: pointer;
   transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
@@ -74,7 +88,7 @@
 
 .loginForm button:hover {
   transform: translateY(-2px) scale(1.02);
-  box-shadow: 0 8px 16px rgba(187, 111, 70, 0.28);
+  box-shadow: 0 10px 20px rgba(55, 36, 26, 0.28);
   filter: brightness(1.05);
 }
 
@@ -89,8 +103,8 @@
 .loginOptions {
   margin-top: 16px;
   display: flex;
-  flex-direction: column;
-  gap: 10px;
+  justify-content: space-between;
+  gap: 12px;
 }
 
 .loginOptions .option {
@@ -98,12 +112,15 @@
   color: #4b3427;
   text-align: center;
   font-weight: 600;
-}
-
-.loginOptions .option + .option {
-  margin-top: 8px;
+  border: none;
+  background: none;
+  padding: 0;
 }
 
 .loginOptions .option:hover {
   text-decoration: underline;
+}
+.loginOptions .option:focus {
+  outline: 2px solid rgba(187, 111, 70, 0.4);
+  outline-offset: 2px;
 }

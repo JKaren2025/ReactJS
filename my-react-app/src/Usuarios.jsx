@@ -2,8 +2,10 @@ import { useEffect, useState } from "react";
 import api from "./Services/api";
 import "./Usuario.css";
 import RegistrarUsuarios from "./RegistrarUsuarios";
+import { useAuth } from "./AuthContext";
 
 function Usuarios() {
+  const { isLoggedIn } = useAuth();
   const [usuarios, setUsuarios] = useState([]);
   const [cargando, setCargando] = useState(true);
   const [usuarioSeleccionado, setUsuarioSeleccionado] = useState(null);
@@ -31,6 +33,15 @@ function Usuarios() {
   useEffect(() => {
     obtenerUsuarios();
   }, []);
+
+  if (!isLoggedIn) {
+    return (
+      <div className="usuariosDiv">
+        <h1>Usuarios</h1>
+        <p>Inicia sesion para ver y administrar usuarios.</p>
+      </div>
+    );
+  }
 
   if (cargando) return <p>Cargando usuarios...</p>;
 

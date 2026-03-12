@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+﻿import { useEffect, useState } from "react";
 
 function Clima() {
   const [clima, setClima] = useState(null);
@@ -22,7 +22,7 @@ function Clima() {
       {clima ? (
         <>
           <p>
-            {clima.name} Tem: {clima.main.temp}�C Hum: {clima.main.humidity}%
+            {clima.name} Tem: {clima.main.temp}°C Hum: {clima.main.humidity}%
           </p>
           <p>Descripcion: {clima.weather[0].description}</p>
         </>
