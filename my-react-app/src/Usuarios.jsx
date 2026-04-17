@@ -63,13 +63,13 @@ function Usuarios() {
               <tr>
                 <th>ID</th>
                 <th>Nombre</th>
-                <th>Usuario</th>
+                <th>Dirección</th>
                 <th>Email</th>
-                <th>Contrasena</th>
+                <th>Password</th>
                 <th>Telefono</th>
-                <th>Ciudad</th>
+                <th>Rol</th>
                 <th>Calle</th>
-                <th>Numero</th>
+                <th>Fecha de Registro</th>
                 <th>Editar</th>
                 <th>Eliminar</th>
               </tr>
@@ -81,10 +81,11 @@ function Usuarios() {
                   <td>
                     {usuario.name?.firstname} {usuario.name?.lastname}
                   </td>
-                  <td>{usuario.username}</td>
-                  <td>{usuario.email}</td>
+                  <td>{usuario.nombre}</td>
+                  <td>{usuario.direccion}</td>
                   <td>{usuario.password}</td>
-                  <td>{usuario.phone}</td>
+                  <td>{usuario.telefono}</td>
+                  <td>{usuario.rol}</td>
                   <td>{usuario.address?.city}</td>
                   <td>{usuario.address?.street}</td>
                   <td>{usuario.address?.number}</td>
