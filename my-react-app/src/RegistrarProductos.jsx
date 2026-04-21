@@ -1,17 +1,19 @@
-import { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
-import api from './Services/api';
-import './RegistrarProductos.css';
+import { useState, useEffect } from "react";
+import PropTypes from "prop-types";
+import api from "./Services/api";
+import "./RegistrarProductos.css";
 
 function RegistrarProductos({ productoEditado, limpiarSeleccion, onActualizacionExitosa }) {
   const [productos, setProductos] = useState({
-    title: '',
-    price: '',
-    description: '',
-    category: '',
-    image: '',
+    nombre: "",
+    precio: "",
+    descripcion: "",
+    imagen: "",
+    stock: "",
+    id_categoria: "",
   });
-  const [mensaje, setMensaje] = useState('');
+  const [categorias, setCategorias] = useState([]);
+  const [mensaje, setMensaje] = useState("");
 
   const handleChange = (e) => {
     setProductos({
@@ -20,48 +22,60 @@ function RegistrarProductos({ productoEditado, limpiarSeleccion, onActualizacion
     });
   };
 
-  // when a product is selected for editing, populate the form
   useEffect(() => {
     if (productoEditado) {
       setProductos({
-        title: productoEditado.title || '',
-        price: productoEditado.price || '',
-        description: productoEditado.description || '',
-        category: productoEditado.category || '',
-        image: productoEditado.image || '',
+        nombre: productoEditado.nombre || "",
+        precio: productoEditado.precio || "",
+        descripcion: productoEditado.descripcion || "",
+        imagen: productoEditado.imagen || "",
+        stock: productoEditado.stock || "",
+        id_categoria: productoEditado.id_categoria || "",
       });
-      setMensaje('');
+      setMensaje("");
     }
   }, [productoEditado]);
+
+  useEffect(() => {
+    const obtenerCategorias = async () => {
+      try {
+        const response = await api.get("/categorias");
+        setCategorias(response.data);
+      } catch (error) {
+        console.error("Error al obtener categorias:", error);
+      }
+    };
+
+    obtenerCategorias();
+  }, []);
 
   const handSubmit = async (e) => {
     e.preventDefault();
     try {
       if (productoEditado && productoEditado.id) {
-        // update existing product
-        const response = await api.put(`/products/${productoEditado.id}`, productos);
-        console.log('Producto actualizado:', response.data);
-        setMensaje('Producto actualizado correctamente.');
+        const response = await api.put(`/productos/${productoEditado.id}`, productos);
+        console.log("Producto actualizado:", response.data);
+        setMensaje("Producto actualizado correctamente.");
         limpiarSeleccion();
       } else {
-        const response = await api.post('/products', productos);
-        console.log('Producto registrado:', response.data);
-        setMensaje('Producto registrado correctamente.');
+        const response = await api.post("/productos", productos);
+        console.log("Producto registrado:", response.data);
+        setMensaje("Producto registrado correctamente.");
       }
 
-      // clear form after submission
       setProductos({
-        title: '',
-        price: '',
-        description: '',
-        category: '',
-        image: '',
+        nombre: "",
+        precio: "",
+        descripcion: "",
+        imagen: "",
+        stock: "",
+        id_categoria: "",
       });
 
-      // notify parent to refresh list
       onActualizacionExitosa();
     } catch (error) {
-      console.error('Error al registrar o actualizar producto:', error);
+      console.error("Error al registrar o actualizar producto:", error);
+      setMensaje("No se pudo guardar el producto. Revisa los datos.");
     }
   };
 
@@ -70,19 +84,19 @@ function RegistrarProductos({ productoEditado, limpiarSeleccion, onActualizacion
       <h2>Registrar Productos</h2>
       {mensaje && <p className="formMensaje">{mensaje}</p>}
       <form onSubmit={handSubmit}>
-        <label>Titulo</label>
+        <label>Nombre</label>
         <input
           type="text"
-          name="title"
-          value={productos.title}
+          name="nombre"
+          value={productos.nombre}
           onChange={handleChange}
           required
         />
         <label>Precio</label>
         <input
           type="number"
-          name="price"
-          value={productos.price}
+          name="precio"
+          value={productos.precio}
           onChange={handleChange}
           step="0.01"
           required
@@ -90,29 +104,44 @@ function RegistrarProductos({ productoEditado, limpiarSeleccion, onActualizacion
         <label>Descripcion</label>
         <input
           type="text"
-          name="description"
-          value={productos.description}
+          name="descripcion"
+          value={productos.descripcion}
           onChange={handleChange}
           required
         />
         <label>Categoria</label>
-        <input
-          type="text"
-          name="category"
-          value={productos.category}
+        <select
+          name="id_categoria"
+          value={productos.id_categoria}
           onChange={handleChange}
+          required
+        >
+          <option value="">Selecciona una categoria</option>
+          {categorias.map((categoria) => (
+            <option key={categoria.id} value={categoria.id}>
+              {categoria.nombre}
+            </option>
+          ))}
+        </select>
+        <label>Stock</label>
+        <input
+          type="number"
+          name="stock"
+          value={productos.stock}
+          onChange={handleChange}
+          min="0"
           required
         />
         <label>URL de imagen</label>
         <input
           type="text"
-          name="image"
-          value={productos.image}
+          name="imagen"
+          value={productos.imagen}
           onChange={handleChange}
           required
         />
         <button type="submit">
-          {productoEditado ? 'Actualizar Producto' : 'Registrar Producto'}
+          {productoEditado ? "Actualizar Producto" : "Registrar Producto"}
         </button>
       </form>
     </div>

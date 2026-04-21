@@ -1,14 +1,29 @@
-﻿import { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import "./Categorias.css";
 import { useAuth } from "./AuthContext";
-
-const CATEGORIES_ENDPOINT = "categories.php";
+import api from "./Services/api";
 
 function Categorias() {
   const { isLoggedIn } = useAuth();
   const [categorias, setCategorias] = useState([]);
+  const [nombre, setNombre] = useState("");
   const [cargando, setCargando] = useState(true);
   const [error, setError] = useState("");
+  const [mensaje, setMensaje] = useState("");
+
+  const cargarCategorias = async () => {
+    try {
+      setCargando(true);
+      setError("");
+      const response = await api.get("/categorias");
+      setCategorias(Array.isArray(response.data) ? response.data : []);
+    } catch (err) {
+      console.error("Error al cargar categorias:", err);
+      setError("Error al cargar las categorias.");
+    } finally {
+      setCargando(false);
+    }
+  };
 
   useEffect(() => {
     if (!isLoggedIn) {
@@ -16,70 +31,92 @@ function Categorias() {
       return;
     }
 
-    const controller = new AbortController();
-    const cargarCategorias = async () => {
-      try {
-        setCargando(true);
-        setError("");
-        const baseUrl = import.meta.env.VITE_MEALDB_API;
-        if (!baseUrl) {
-          setError("Falta configurar la API de categorias.");
-          return;
-        }
-        const response = await fetch(`${baseUrl}/${CATEGORIES_ENDPOINT}`, {
-          signal: controller.signal,
-        });
-        if (!response.ok) {
-          throw new Error("No se pudo obtener las categorias");
-        }
-        const data = await response.json();
-        setCategorias(Array.isArray(data.categories) ? data.categories : []);
-      } catch (err) {
-        if (err.name !== "AbortError") {
-          setError("Error al cargar las categorias.");
-        }
-      } finally {
-        setCargando(false);
-      }
-    };
-
     cargarCategorias();
-
-    return () => controller.abort();
   }, [isLoggedIn]);
+
+  const crearCategoria = async (e) => {
+    e.preventDefault();
+    try {
+      setMensaje("");
+      setError("");
+      await api.post("/categorias", { nombre });
+      setNombre("");
+      setMensaje("Categoria creada correctamente.");
+      cargarCategorias();
+    } catch (err) {
+      console.error("Error al crear categoria:", err);
+      setError("No se pudo crear la categoria.");
+    }
+  };
+
+  const eliminarCategoria = async (id) => {
+    try {
+      setMensaje("");
+      setError("");
+      await api.delete(`/categorias/${id}`);
+      setMensaje("Categoria eliminada correctamente.");
+      cargarCategorias();
+    } catch (err) {
+      console.error("Error al eliminar categoria:", err);
+      setError("No se pudo eliminar la categoria.");
+    }
+  };
 
   if (!isLoggedIn) {
     return (
       <section className="categoriasSection">
         <h1>Categorias</h1>
-        <p>Inicia sesion para ver las categorias.</p>
+        <p>Inicia sesion para ver y administrar categorias.</p>
       </section>
     );
   }
 
   return (
     <section className="categoriasSection">
-      <header className="categoriasHeader">
-        <h1>Categorias</h1>
-        <p>Explora las categorias de recetas disponibles.</p>
-      </header>
-      {cargando ? <p>Cargando categorias...</p> : null}
-      {error ? <p className="categoriasError">{error}</p> : null}
-      {!cargando && !error ? (
-        <div className="categoriasGrid">
-          {categorias.map((categoria) => (
-            <article key={categoria.idCategory} className="categoriaCard">
-              <div className="categoriaImagen">
-                <img src={categoria.strCategoryThumb} alt={categoria.strCategory} />
-              </div>
-              <div className="categoriaInfo">
-                <h3>{categoria.strCategory}</h3>
-                <p>{categoria.strCategoryDescription}</p>
-              </div>
-            </article>
-          ))}
+      <div className="categoriasPanel">
+        <header className="categoriasHeader">
+          <h1>Categorias</h1>
+        </header>
+
+        <div className="categoriasContenido">
+          <article className="categoriaCard categoriaFormCard">
+            <h3>Nueva Categoria</h3>
+            <form className="categoriaForm" onSubmit={crearCategoria}>
+              <input
+                type="text"
+                placeholder="Nombre de la categoria"
+                value={nombre}
+                onChange={(e) => setNombre(e.target.value)}
+                required
+              />
+              <button type="submit">Crear</button>
+            </form>
+          </article>
+
+          {mensaje ? <p className="categoriasMensaje">{mensaje}</p> : null}
+          {error ? <p className="categoriasError">{error}</p> : null}
+          {cargando ? <p className="categoriasCarga">Cargando categorias...</p> : null}
+
+          {!cargando ? (
+            <div className="categoriasLista">
+              {categorias.map((categoria) => (
+                <article key={categoria.id} className="categoriaCard categoriaItemCard">
+                  <h3>{categoria.nombre}</h3>
+                  <p>ID: {categoria.id}</p>
+                  <p>Productos: {Array.isArray(categoria.productos) ? categoria.productos.length : 0}</p>
+                  <button
+                    type="button"
+                    className="btnEliminarCategoria"
+                    onClick={() => eliminarCategoria(categoria.id)}
+                  >
+                    Eliminar
+                  </button>
+                </article>
+              ))}
+            </div>
+          ) : null}
         </div>
-      ) : null}
+      </div>
     </section>
   );
 }

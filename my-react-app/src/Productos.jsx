@@ -37,7 +37,7 @@ function Producto({ onEditar, actualizarLista, isLoggedIn }) {
 
   const obtenerProductos = async () => {
     try {
-      const response = await api.get("/products");
+      const response = await api.get("/productos");
       setProductos(response.data);
     } catch (error) {
       console.error("Error al obtener productos:", error);
@@ -48,7 +48,7 @@ function Producto({ onEditar, actualizarLista, isLoggedIn }) {
 
   const removeProducto = async (id) => {
     try {
-      await api.delete(`/products/${id}`);
+      await api.delete(`/productos/${id}`);
       obtenerProductos();
     } catch (error) {
       console.error("Error al eliminar producto:", error);
@@ -65,19 +65,32 @@ function Producto({ onEditar, actualizarLista, isLoggedIn }) {
     <section className="productosGrid">
       {productos.map((producto) => (
         <article key={producto.id} className="productoCard">
-          <img className="productoImagen" src={producto.image} alt={producto.title} />
-          <h3>{producto.title}</h3>
-          <p>{producto.description}</p>
-          <p>{producto.category}</p>
-          <p className="productoPrecio">${producto.price}</p>
+          <img
+            className="productoImagen"
+            src={producto.imagen || "https://via.placeholder.com/300x220?text=Sin+imagen"}
+            alt={producto.nombre}
+          />
+          <h3>{producto.nombre}</h3>
+          <p>{producto.descripcion}</p>
+          <p>{producto.categoria?.nombre || `Categoria #${producto.id_categoria}`}</p>
+          <p>Stock: {producto.stock}</p>
+          <p className="productoPrecio">${producto.precio}</p>
           <div className="productoBotones">
-            <button type="button" className="btnAnadir">Añadir</button>
+            <button type="button" className="btnAnadir">Anadir</button>
             {isLoggedIn ? (
               <>
-                <button type="button" className="btnEditarProducto" onClick={() => onEditar(producto)}>
+                <button
+                  type="button"
+                  className="btnEditarProducto"
+                  onClick={() => onEditar(producto)}
+                >
                   Editar
                 </button>
-                <button type="button" className="btnEliminarProducto" onClick={() => removeProducto(producto.id)}>
+                <button
+                  type="button"
+                  className="btnEliminarProducto"
+                  onClick={() => removeProducto(producto.id)}
+                >
                   Eliminar
                 </button>
               </>
@@ -90,5 +103,3 @@ function Producto({ onEditar, actualizarLista, isLoggedIn }) {
 }
 
 export default Productos;
-
-

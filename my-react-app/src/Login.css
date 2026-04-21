@@ -68,7 +68,22 @@
   color: #4b3427;
 }
 
+.loginForm select {
+  border: 1px solid rgba(75, 52, 39, 0.28);
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-size: 14px;
+  background: #ffffff;
+  color: #4b3427;
+}
+
 .loginForm input:focus {
+  border-color: #bb6f46;
+  box-shadow: 0 0 0 3px rgba(187, 111, 70, 0.22);
+  outline: none;
+}
+
+.loginForm select:focus {
   border-color: #bb6f46;
   box-shadow: 0 0 0 3px rgba(187, 111, 70, 0.22);
   outline: none;
@@ -123,4 +138,11 @@
 .loginOptions .option:focus {
   outline: 2px solid rgba(187, 111, 70, 0.4);
   outline-offset: 2px;
+}
+
+.loginMessage {
+  text-align: center;
+  margin: 0 0 14px;
+  color: #4b3427;
+  font-weight: 600;
 }

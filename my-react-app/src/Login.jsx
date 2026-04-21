@@ -1,19 +1,34 @@
-﻿import React, { useState } from "react";
+import React, { useState } from "react";
 import api from "./Services/api";
 import "./Login.css";
 import { useAuth } from "./AuthContext";
 
+const initialRegisterForm = {
+  nombre: "",
+  direccion: "",
+  telefono: "",
+  email: "",
+  password: "",
+  rol: "cliente",
+};
+
 const Login = ({ chVista, onLoginSuccess }) => {
   const { login } = useAuth();
-  const [username, setUsername] = useState("");
+  const [modo, setModo] = useState("login");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [registerForm, setRegisterForm] = useState(initialRegisterForm);
+  const [mensaje, setMensaje] = useState("");
 
-  const handlesubmit = async (e) => {
+  const handleLoginSubmit = async (e) => {
     e.preventDefault();
-    const credenciales = { username, password };
+    const credenciales = { email, password };
+
     try {
-      const respuesta = await api.post("/auth/login", credenciales);
+      setMensaje("");
+      const respuesta = await api.post("/login", credenciales);
       const data = respuesta.data;
+
       if (data?.token) {
         login(data.token);
         console.log("Token recibido:", data.token);
@@ -33,6 +48,34 @@ const Login = ({ chVista, onLoginSuccess }) => {
     }
   };
 
+  const handleRegisterChange = (e) => {
+    setRegisterForm({
+      ...registerForm,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleRegisterSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      setMensaje("");
+      await api.post("/usuarios", {
+        ...registerForm,
+        fecha_registro: new Date().toISOString(),
+      });
+
+      setMensaje("Cuenta creada correctamente. Ahora inicia sesion.");
+      setEmail(registerForm.email);
+      setPassword("");
+      setRegisterForm(initialRegisterForm);
+      setModo("login");
+    } catch (error) {
+      console.error("Error al crear la cuenta:", error);
+      setMensaje("No se pudo crear la cuenta. Revisa los datos.");
+    }
+  };
+
   return (
     <div className="loginContainer">
       <div className="loginCard">
@@ -48,33 +91,114 @@ const Login = ({ chVista, onLoginSuccess }) => {
             />
           </svg>
         </div>
-        <h2>Iniciar sesion</h2>
-        <form className="loginForm" onSubmit={handlesubmit}>
-          <label htmlFor="login-usuario">Usuario</label>
-          <input
-            id="login-usuario"
-            type="text"
-            placeholder="Ingresa tu usuario"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-          />
-          <label htmlFor="login-password">Contrasena</label>
-          <input
-            id="login-password"
-            type="password"
-            placeholder="Ingresa tu contrasena"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          <button type="submit">Acceder</button>
-        </form>
+
+        <h2>{modo === "login" ? "Iniciar sesion" : "Crear cuenta"}</h2>
+        {mensaje ? <p className="loginMessage">{mensaje}</p> : null}
+
+        {modo === "login" ? (
+          <form className="loginForm" onSubmit={handleLoginSubmit}>
+            <label htmlFor="login-usuario">Correo electronico</label>
+            <input
+              id="login-usuario"
+              type="email"
+              placeholder="Ingresa tu correo"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+            <label htmlFor="login-password">Contrasena</label>
+            <input
+              id="login-password"
+              type="password"
+              placeholder="Ingresa tu contrasena"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+            <button type="submit">Acceder</button>
+          </form>
+        ) : (
+          <form className="loginForm" onSubmit={handleRegisterSubmit}>
+            <label htmlFor="register-nombre">Nombre</label>
+            <input
+              id="register-nombre"
+              type="text"
+              name="nombre"
+              placeholder="Ingresa tu nombre"
+              value={registerForm.nombre}
+              onChange={handleRegisterChange}
+              required
+            />
+            <label htmlFor="register-direccion">Direccion</label>
+            <input
+              id="register-direccion"
+              type="text"
+              name="direccion"
+              placeholder="Ingresa tu direccion"
+              value={registerForm.direccion}
+              onChange={handleRegisterChange}
+              required
+            />
+            <label htmlFor="register-telefono">Telefono</label>
+            <input
+              id="register-telefono"
+              type="text"
+              name="telefono"
+              placeholder="Ingresa tu telefono"
+              value={registerForm.telefono}
+              onChange={handleRegisterChange}
+              required
+            />
+            <label htmlFor="register-email">Correo electronico</label>
+            <input
+              id="register-email"
+              type="email"
+              name="email"
+              placeholder="Ingresa tu correo"
+              value={registerForm.email}
+              onChange={handleRegisterChange}
+              required
+            />
+            <label htmlFor="register-password">Contrasena</label>
+            <input
+              id="register-password"
+              type="password"
+              name="password"
+              placeholder="Crea tu contrasena"
+              value={registerForm.password}
+              onChange={handleRegisterChange}
+              required
+            />
+            <label htmlFor="register-rol">Rol</label>
+            <select
+              id="register-rol"
+              name="rol"
+              value={registerForm.rol}
+              onChange={handleRegisterChange}
+              required
+            >
+              <option value="cliente">cliente</option>
+              <option value="admin">admin</option>
+            </select>
+            <button type="submit">Registrar cuenta</button>
+          </form>
+        )}
+
         <div className="loginOptions">
-          <button type="button" className="option">
-            Crear cuenta
-          </button>
-          <button type="button" className="option">
-            Cambiar contrasena
-          </button>
+          {modo === "login" ? (
+            <>
+              <button type="button" className="option" onClick={() => setModo("register")}>
+                Crear cuenta
+              </button>
+              <button type="button" className="option">
+                Cambiar contrasena
+              </button>
+            </>
+          ) : (
+            <button type="button" className="option" onClick={() => setModo("login")}>
+              Volver a iniciar sesion
+            </button>
+          )}
         </div>
       </div>
     </div>
