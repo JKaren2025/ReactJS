@@ -1,4 +1,4 @@
-.divForm {
+﻿.divForm {
   max-width: 420px;
   margin: 18px auto;
   padding: 16px;
@@ -31,7 +31,9 @@
 }
 
 .formularioProductos input,
-.formularioUsuarios input {
+.formularioUsuarios input,
+.formularioProductos select,
+.formularioUsuarios select {
   border: 1px solid rgba(75, 52, 39, 0.2);
   border-radius: 6px;
   padding: 10px;
@@ -40,14 +42,22 @@
 }
 
 .formularioProductos input:focus,
-.formularioUsuarios input:focus {
+.formularioUsuarios input:focus,
+.formularioProductos select:focus,
+.formularioUsuarios select:focus {
   border-color: #be6d44;
   box-shadow: 0 0 8px rgba(187, 111, 70, 0.25);
   outline: none;
 }
 
+.accionesFormularioUsuarios {
+  display: flex;
+  gap: 10px;
+}
+
 .formularioProductos button,
 .formularioUsuarios button {
+  flex: 1;
   border: none;
   border-radius: 6px;
   padding: 10px 12px;
@@ -63,4 +73,14 @@
   transform: translateY(-2px) scale(1.02);
   box-shadow: 0 8px 16px rgba(187, 111, 70, 0.28);
   filter: brightness(1.05);
+}
+
+.btnCancelarUsuario {
+  background: linear-gradient(90deg, #4b3427, #6e4a37) !important;
+}
+
+@media (max-width: 520px) {
+  .accionesFormularioUsuarios {
+    flex-direction: column;
+  }
 }

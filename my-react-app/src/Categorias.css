@@ -1,4 +1,4 @@
-.categoriasSection {
+﻿.categoriasSection {
   width: 100%;
   padding: 28px 20px;
   background:
@@ -11,7 +11,7 @@
 }
 
 .categoriasPanel {
-  max-width: 760px;
+  max-width: 960px;
   margin: 0 auto;
   background: rgba(255, 255, 255, 0.68);
   border: 1px solid rgba(98, 73, 58, 0.12);
@@ -27,17 +27,23 @@
 }
 
 .categoriasHeader h1 {
-  margin: 0;
+  margin: 0 0 8px;
   font-size: clamp(1.8rem, 3vw, 2.4rem);
 }
 
+.categoriasSubtexto {
+  margin: 0;
+  color: #6c5141;
+}
+
 .categoriasContenido {
-  max-width: 360px;
+  max-width: 760px;
   margin: 0 auto;
 }
 
 .categoriasLista {
   display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 14px;
 }
 
@@ -64,10 +70,9 @@
 }
 
 .categoriaForm {
-  display: grid;
-  grid-template-columns: 1fr auto;
+  display: flex;
+  flex-direction: column;
   gap: 10px;
-  align-items: center;
 }
 
 .categoriaForm input {
@@ -85,34 +90,40 @@
   box-shadow: 0 0 0 3px rgba(187, 111, 70, 0.14);
 }
 
-.categoriaForm button {
-  border: none;
-  border-radius: 10px;
-  background: linear-gradient(135deg, #2fa84f 0%, #1f8a3d 100%);
-  color: #fff;
-  font-weight: 700;
-  padding: 12px 18px;
-  cursor: pointer;
+.categoriaFormAcciones,
+.categoriaAcciones {
+  display: flex;
+  gap: 10px;
 }
 
-.categoriaForm button:hover {
-  filter: brightness(1.05);
-}
-
-.btnEliminarCategoria {
-  width: 100%;
-  margin-top: 12px;
+.categoriaFormAcciones button,
+.btnEditarCategoria,
+.btnEliminarCategoria,
+.btnSecundarioCategoria {
   border: none;
   border-radius: 10px;
-  background: linear-gradient(135deg, #c12c3c 0%, #a91d2d 100%);
   color: #fff;
   font-weight: 700;
   padding: 11px 14px;
   cursor: pointer;
 }
 
-.btnEliminarCategoria:hover {
-  filter: brightness(1.04);
+.categoriaFormAcciones button {
+  background: linear-gradient(135deg, #2fa84f 0%, #1f8a3d 100%);
+}
+
+.btnSecundarioCategoria {
+  background: linear-gradient(135deg, #5d4a3d 0%, #47362c 100%);
+}
+
+.btnEditarCategoria {
+  flex: 1;
+  background: linear-gradient(135deg, #4b3427 0%, #6f4d3d 100%);
+}
+
+.btnEliminarCategoria {
+  flex: 1;
+  background: linear-gradient(135deg, #c12c3c 0%, #a91d2d 100%);
 }
 
 .categoriasError,
@@ -144,11 +155,12 @@
     padding: 22px 14px;
   }
 
-  .categoriaForm {
+  .categoriasLista {
     grid-template-columns: 1fr;
   }
 
-  .categoriaForm button {
-    width: 100%;
+  .categoriaFormAcciones,
+  .categoriaAcciones {
+    flex-direction: column;
   }
 }

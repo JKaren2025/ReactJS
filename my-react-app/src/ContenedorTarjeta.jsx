@@ -61,7 +61,7 @@ function ContenedorTarjeta({ vista, onLoginSuccess, chVista }) {
     "inicio": <Inicio />,
     "acerca de": <AcercaDe />,
     "usuarios": <Usuarios />,
-    "productos": <Productos />,
+    "productos": <Productos chVista={chVista} />,
     "carritos": <Carritos />,
     "carrito": <Carritos />,
     "galeria": <Galeria />,

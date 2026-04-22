@@ -1,4 +1,4 @@
-.productoDiv {
+﻿.productoDiv {
   --crema: #f8f3eb;
   --terracota: #be6d44;
   --cafe: #4a3428;
@@ -13,75 +13,44 @@
 }
 
 .productoDiv > h1 {
-  margin: 0 0 20px;
+  margin: 0 0 8px;
   text-align: center;
   color: var(--cafe);
   font-size: clamp(1.6rem, 2.8vw, 2.2rem);
+}
+
+.productoSubtexto,
+.productoMensaje,
+.productoError,
+.productoEstado {
+  max-width: 760px;
+  margin: 0 auto 16px;
+  text-align: center;
+}
+
+.productoSubtexto {
+  color: #6b5648;
+}
+
+.productoMensaje {
+  color: #2a6f3b;
+  font-weight: 700;
+}
+
+.productoError {
+  color: #9b2f2f;
+  font-weight: 700;
+}
+
+.productoEstado {
+  color: #5f483b;
+  font-weight: 600;
 }
 
 .productosGrid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 16px;
-}
-
-/* styles for embedded registration form */
-.registroProducto {
-  width: 100%;
-  max-width: 600px;
-  margin: 30px auto 40px;
-  padding: 20px;
-  background: #fff;
-  border: 1px solid rgba(74, 52, 40, 0.1);
-  border-radius: 12px;
-}
-
-.registroProducto h2 {
-  text-align: center;
-  color: #4a3428;
-  margin-bottom: 16px;
-}
-
-.registrarForm {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.formGroup {
-  display: flex;
-  flex-direction: column;
-}
-
-.formGroup label {
-  margin-bottom: 4px;
-  font-weight: 600;
-  color: #4a3428;
-  font-size: 0.9rem;
-}
-
-.formGroup input,
-.formGroup textarea {
-  padding: 8px 10px;
-  border: 1px solid rgba(74, 52, 40, 0.2);
-  border-radius: 8px;
-  font-size: 0.95rem;
-}
-
-.btnRegistrar {
-  margin-top: 8px;
-  cursor: pointer;
-  background: linear-gradient(90deg, #be6d44, #d4845f);
-  color: #fff;
-  border: none;
-  padding: 10px 14px;
-  border-radius: 8px;
-  font-weight: 700;
-  transition: background 0.2s ease;
-}
-
-.btnRegistrar:hover {
-  background: linear-gradient(90deg, #a85a38, #c26b4d);
 }
 
 .productoCard {
@@ -120,6 +89,12 @@
   font-size: 0.95rem;
 }
 
+.productoDescripcion,
+.productoMeta {
+  margin: 0 0 8px;
+  color: #6c5141;
+}
+
 .productoPrecio {
   margin: 0 0 12px;
   color: var(--terracota);
@@ -133,11 +108,10 @@
   margin-top: auto;
 }
 
-.btnAñadir,
-.btnAnadir {
-  flex: 1;
+.btnAnadir,
+.btnEditarProducto,
+.btnEliminarProducto {
   border: none;
-  background: linear-gradient(90deg, #be6d44, #d4845f);
   color: #fff;
   padding: 10px 14px;
   border-radius: 10px;
@@ -145,32 +119,30 @@
   font-size: 0.95rem;
   cursor: pointer;
   transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+}
+
+.btnAnadir {
+  flex: 1;
+  background: linear-gradient(90deg, #be6d44, #d4845f);
   box-shadow: 0 4px 10px rgba(190, 109, 68, 0.25);
 }
 
-.btnAñadir:hover,
 .btnAnadir:hover {
   background: linear-gradient(90deg, #a85a38, #c26b4d);
   transform: translateY(-3px);
   box-shadow: 0 8px 16px rgba(190, 109, 68, 0.4);
 }
 
-.btnAñadir:active,
-.btnAnadir:active {
-  transform: translateY(-1px);
+.btnAnadir:disabled {
+  cursor: not-allowed;
+  opacity: 0.72;
+  transform: none;
+  box-shadow: none;
 }
 
 .btnEditarProducto {
-  flex: 0.8;
-  border: none;
+  flex: 1;
   background: linear-gradient(90deg, #4a3428, #6e4a37);
-  color: #fff;
-  padding: 10px 14px;
-  border-radius: 10px;
-  font-weight: 700;
-  font-size: 0.95rem;
-  cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
   box-shadow: 0 4px 10px rgba(74, 52, 40, 0.25);
 }
 
@@ -180,21 +152,9 @@
   box-shadow: 0 8px 16px rgba(74, 52, 40, 0.35);
 }
 
-.btnEditarProducto:active {
-  transform: translateY(-1px);
-}
-
 .btnEliminarProducto {
-  flex: 0.8;
-  border: none;
+  flex: 1;
   background: linear-gradient(90deg, #dc3545, #e85960);
-  color: #fff;
-  padding: 10px 14px;
-  border-radius: 10px;
-  font-weight: 700;
-  font-size: 0.95rem;
-  cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
   box-shadow: 0 4px 10px rgba(220, 53, 69, 0.25);
 }
 
@@ -202,10 +162,6 @@
   background: linear-gradient(90deg, #c82333, #d63545);
   transform: translateY(-3px);
   box-shadow: 0 8px 16px rgba(220, 53, 69, 0.4);
-}
-
-.btnEliminarProducto:active {
-  transform: translateY(-1px);
 }
 
 @media (max-width: 960px) {
@@ -218,7 +174,7 @@
   .productosGrid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
-  
+
   .productoDiv {
     padding: 20px 12px;
   }
@@ -228,8 +184,12 @@
   .productosGrid {
     grid-template-columns: 1fr;
   }
-  
+
   .productoDiv {
     padding: 20px 12px;
+  }
+
+  .productoBotones {
+    flex-direction: column;
   }
 }

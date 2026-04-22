@@ -1,26 +1,22 @@
-import { useEffect, useState } from "react";
+﻿import { useEffect, useState } from "react";
 import "./RegistrarUsuarios.css";
 import api from "./Services/api";
 
+const initialUserForm = {
+  nombre: "",
+  direccion: "",
+  telefono: "",
+  email: "",
+  password: "",
+  rol: "cliente",
+};
+
 function RegistrarUsuarios({ usuarioEditado, limpiarSeleccion, onActualizacionExitosa }) {
-  const [formulario, setFormulario] = useState({
-    nombre: "",
-    direccion: "",
-    telefono: "",
-    email: "",
-    password: "",
-    rol: "cliente",
-  });
+  const [formulario, setFormulario] = useState(initialUserForm);
+  const [mensaje, setMensaje] = useState("");
 
   const resetForm = () => {
-    setFormulario({
-      nombre: "",
-      direccion: "",
-      telefono: "",
-      email: "",
-      password: "",
-      rol: "cliente",
-    });
+    setFormulario(initialUserForm);
   };
 
   useEffect(() => {
@@ -30,12 +26,14 @@ function RegistrarUsuarios({ usuarioEditado, limpiarSeleccion, onActualizacionEx
         direccion: usuarioEditado.direccion || "",
         telefono: usuarioEditado.telefono || "",
         email: usuarioEditado.email || "",
-        password: usuarioEditado.password || "",
+        password: "",
         rol: usuarioEditado.rol || "cliente",
       });
-    } else {
-      resetForm();
+      setMensaje("");
+      return;
     }
+
+    resetForm();
   }, [usuarioEditado]);
 
   const handleChange = (e) => {
@@ -47,35 +45,53 @@ function RegistrarUsuarios({ usuarioEditado, limpiarSeleccion, onActualizacionEx
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     const nuevoUsuario = {
       ...formulario,
       fecha_registro: usuarioEditado?.fecha_registro || new Date().toISOString(),
     };
 
+    if (usuarioEditado && !nuevoUsuario.password) {
+      delete nuevoUsuario.password;
+    }
+
     try {
       if (usuarioEditado) {
-        const respuesta = await api.put(`/usuarios/${usuarioEditado.id}`, nuevoUsuario);
-        console.log("Usuario actualizado:", respuesta.data);
-        alert("Usuario actualizado con exito");
-        if (limpiarSeleccion) limpiarSeleccion();
+        await api.put(`/usuarios/${usuarioEditado.id}`, nuevoUsuario);
+        setMensaje("Usuario actualizado con exito.");
+        if (limpiarSeleccion) {
+          limpiarSeleccion();
+        }
+        if (onActualizacionExitosa) {
+          onActualizacionExitosa("Usuario actualizado correctamente.");
+        }
       } else {
-        const respuesta = await api.post("/usuarios", nuevoUsuario);
-        console.log("Usuario registrado:", respuesta.data);
-        alert("Usuario registrado con exito");
+        await api.post("/usuarios", nuevoUsuario);
+        setMensaje("Usuario registrado con exito.");
         resetForm();
+        if (onActualizacionExitosa) {
+          onActualizacionExitosa("Usuario registrado correctamente.");
+        }
       }
-
-      if (onActualizacionExitosa) onActualizacionExitosa();
     } catch (error) {
       console.error("Error al registrar usuario:", error);
-      alert("Error al procesar la solicitud");
+      setMensaje(error.response?.data?.mensaje || "Error al procesar la solicitud.");
     }
+  };
+
+  const cancelarEdicion = () => {
+    if (limpiarSeleccion) {
+      limpiarSeleccion();
+    }
+    resetForm();
+    setMensaje("Edicion cancelada.");
   };
 
   return (
     <div>
       <div className="divForm">
-        <h1 className="h1">Registrar Usuarios</h1>
+        <h1 className="h1">{usuarioEditado ? "Editar Usuario" : "Registrar Usuario"}</h1>
+        {mensaje ? <p className="usuariosMensaje">{mensaje}</p> : null}
         <form className="formularioProductos" onSubmit={handleSubmit}>
           <label>Nombre del usuario:</label>
           <input
@@ -115,21 +131,24 @@ function RegistrarUsuarios({ usuarioEditado, limpiarSeleccion, onActualizacionEx
             name="password"
             value={formulario.password}
             onChange={handleChange}
-            required
+            placeholder={usuarioEditado ? "Deja vacio para conservar la actual" : ""}
+            required={!usuarioEditado}
           />
           <label>Rol:</label>
-          <select
-            name="rol"
-            value={formulario.rol}
-            onChange={handleChange}
-            required
-          >
+          <select name="rol" value={formulario.rol} onChange={handleChange} required>
             <option value="cliente">cliente</option>
             <option value="admin">admin</option>
           </select>
-          <button type="submit" name="registrar">
-            {usuarioEditado ? "Actualizar" : "Registrar"}
-          </button>
+          <div className="accionesFormularioUsuarios">
+            <button type="submit" name="registrar">
+              {usuarioEditado ? "Actualizar" : "Registrar"}
+            </button>
+            {usuarioEditado ? (
+              <button type="button" className="btnCancelarUsuario" onClick={cancelarEdicion}>
+                Cancelar
+              </button>
+            ) : null}
+          </div>
         </form>
       </div>
     </div>

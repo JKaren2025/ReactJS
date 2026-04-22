@@ -1,4 +1,4 @@
-import whatsapp from "./assets/logo_Whatsaap.png";
+﻿import whatsapp from "./assets/logo_Whatsaap.png";
 import youtube from "./assets/logo_youtube.png";
 import instagram from "./assets/logo_instagram.png";
 import tiktok from "./assets/logo_tik-tok.png";
@@ -29,27 +29,32 @@ function Logo() {
 }
 
 function Menu({ cambiarVista }) {
-  const { isLoggedIn, logout } = useAuth(); //Obtenemos el estado de autenticación y la función de logout del contexto de autenticación
+  const { isLoggedIn, isAdmin, logout } = useAuth();
+
   const handleLogout = () => {
-    logout(); //Llamamos a la función de logout para cerrar la sesión del usuario
-    cambiarVista("Inicio"); //Mandamos al usuario a la vista de "Inicio" después de cerrar sesión
-  };  
+    logout();
+    cambiarVista("Inicio");
+  };
+
   return (
     <nav className="menuDiv" aria-label="Navegacion principal">
       <ul>
         <li onClick={() => cambiarVista("Inicio")}>Inicio</li>
         <li onClick={() => cambiarVista("Acerca de")}>Acerca de</li>
         <li onClick={() => cambiarVista("Productos")}>Productos</li>
+        <li onClick={() => cambiarVista("Categorias")}>Categorias</li>
         <li onClick={() => cambiarVista("Galeria")}>Galeria</li>
         <li onClick={() => cambiarVista("Sucursales")}>Sucursales</li>
-        {isLoggedIn ? ( //Si el usuario está autenticado, muestra las opciones de menú para usuarios autenticados
+        {isLoggedIn ? (
           <>
-          <li onClick={() => cambiarVista("Usuarios")}>Usuarios</li>
-          <li onClick={() => cambiarVista("Categorias")}>Categorias</li>
-          <li onClick={() => cambiarVista("Carritos")}>Carritos</li>
-          <li onClick={handleLogout}>Cerrar sesión</li>
-          </>):(
-          <li onClick={() => cambiarVista("Login")}>Ingresar Sesión</li>
+            <li onClick={() => cambiarVista("Carritos")}>Carritos</li>
+            {isAdmin ? (
+              <li onClick={() => cambiarVista("Usuarios")}>Usuarios</li>
+            ) : null}
+            <li onClick={handleLogout}>Cerrar sesion</li>
+          </>
+        ) : (
+          <li onClick={() => cambiarVista("Login")}>Ingresar Sesion</li>
         )}
       </ul>
     </nav>
@@ -79,33 +84,3 @@ Encabezado.propTypes = {
 };
 
 export default Encabezado;
-
-
-
-
- /* return (
-    <nav className="menuDiv" aria-label="Navegacion principal">
-      <ul>
-        <li onClick={() => cambiarVista("Inicio")}>Inicio</li>
-        <li onClick={() => cambiarVista("Acerca de")}>Acerca de</li>
-        <li onClick={() => cambiarVista("Productos")}>Productos</li>
-        {isLoggedInm ? ( //Si el usuario está autenticado, muestra las opciones de menú para usuarios autenticados
-          <>
-            <li onClick={() => cambiarVista("Usuarios")}>Usuarios</li>
-            <li onClick={() => cambiarVista("Carritos")}>Carritos</li>
-            <li>Cerrar sesión</li>
-          </>):
-          (
-             <li onClick={() => cambiarVista("Login")}>Iniciar Sesión</li>
-          )}
-        <li onClick={() => cambiarVista("Galeria")}>Galeria</li>
-        <li onClick={() => cambiarVista("Sucursales")}>Sucursales</li>
-        <li onClick={() => cambiarVista("Contacto")}>Contacto</li>
-        <li onClick={() => logout()}>Cerrar sesión</li> 
-        </>):(
-        <li onClick={() => cambiarVista("Login")}>Ingresar </li>
-        )}
-      </ul>
-    </nav>
-  );
-}*/

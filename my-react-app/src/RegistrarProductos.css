@@ -1,48 +1,84 @@
-/* corrected selectors and layout for registration form */
-.containerForm{
-    max-width: 480px;
-    margin: 40px auto;
-    padding: 24px 28px;
-    border: 1px solid rgba(75, 52, 39, 0.14);
-    border-radius: 12px;
-    background:
-      radial-gradient(circle at 8% 10%, rgba(187, 111, 70, 0.12), transparent 30%),
-      linear-gradient(135deg, #fffdf8 0%, #f6efe5 100%);
-    box-shadow: 0 8px 18px rgba(45, 30, 22, 0.12);
+﻿.containerForm {
+  max-width: 480px;
+  margin: 40px auto;
+  padding: 24px 28px;
+  border: 1px solid rgba(75, 52, 39, 0.14);
+  border-radius: 12px;
+  background:
+    radial-gradient(circle at 8% 10%, rgba(187, 111, 70, 0.12), transparent 30%),
+    linear-gradient(135deg, #fffdf8 0%, #f6efe5 100%);
+  box-shadow: 0 8px 18px rgba(45, 30, 22, 0.12);
 }
-.containerForm h2{
-    text-align: center;
-    margin-bottom: 20px;
-    color: #4a3428;
+
+.containerForm h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #4a3428;
 }
+
 .containerForm form {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;  
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
 
 .containerForm .formMensaje {
-    text-align: center;
-    margin: 0 0 12px;
-    color: #476a5b;
-    font-weight: 600;
+  text-align: center;
+  margin: 0 0 12px;
+  color: #476a5b;
+  font-weight: 600;
 }
+
 .containerForm label {
-    font-weight: 600;
-    color: #333;
-    font-size: 14px;
-}   
+  font-weight: 600;
+  color: #333;
+  font-size: 14px;
+}
+
 .containerForm input,
-.containerForm textarea {
-    padding: 10px 14px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    font-size: 14px;
-    transition: all 0.2s ease;
-}   
+.containerForm textarea,
+.containerForm select {
+  padding: 10px 14px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 14px;
+  transition: all 0.2s ease;
+  background: #fffdfb;
+}
+
 .containerForm input:focus,
-.containerForm textarea:focus {
-    border-color: #bb6f46;
-    box-shadow: 0 0 8px rgba(187, 111, 70, 0.3);
-    outline: none;
-}   
+.containerForm textarea:focus,
+.containerForm select:focus {
+  border-color: #bb6f46;
+  box-shadow: 0 0 8px rgba(187, 111, 70, 0.3);
+  outline: none;
+}
+
+.formAcciones {
+  display: flex;
+  gap: 12px;
+}
+
+.formAcciones button {
+  flex: 1;
+  border: none;
+  border-radius: 8px;
+  padding: 11px 14px;
+  font-weight: 700;
+  color: #fff;
+  cursor: pointer;
+}
+
+.formAcciones button[type="submit"] {
+  background: linear-gradient(90deg, #be6d44, #d4845f);
+}
+
+.btnSecundario {
+  background: linear-gradient(90deg, #4a3428, #6e4a37);
+}
+
+@media (max-width: 520px) {
+  .formAcciones {
+    flex-direction: column;
+  }
+}

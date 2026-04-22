@@ -1,4 +1,4 @@
-.carritosSection {
+﻿.carritosSection {
   width: 100%;
   padding: 28px 20px;
   background:
@@ -11,7 +11,7 @@
 }
 
 .carritosPanel {
-  max-width: 760px;
+  max-width: 920px;
   margin: 0 auto;
   background: rgba(255, 255, 255, 0.68);
   border: 1px solid rgba(98, 73, 58, 0.12);
@@ -21,6 +21,10 @@
   backdrop-filter: blur(8px);
 }
 
+.carritosPanelCliente {
+  max-width: 1280px;
+}
+
 .carritosPanel h1 {
   margin: 0 0 20px;
   text-align: center;
@@ -28,10 +32,15 @@
 }
 
 .carritosLista {
-  max-width: 360px;
-  margin: 0 auto;
   display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 14px;
+}
+
+.carritosListaCliente {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 18px;
 }
 
 .carritoCard {
@@ -47,7 +56,105 @@
   font-size: 1.2rem;
 }
 
-.carritoCard p {
+.carritoClienteCard {
+  border: 1px solid rgba(75, 52, 39, 0.12);
+  border-radius: 20px;
+  padding: 22px;
+  background:
+    radial-gradient(circle at top right, rgba(187, 111, 70, 0.09), transparent 22%),
+    linear-gradient(180deg, #fffefe 0%, #fff7ef 100%);
+  box-shadow: 0 14px 28px rgba(45, 30, 22, 0.11);
+}
+
+.carritoClienteHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 18px;
+}
+
+.carritoClienteEyebrow {
+  margin: 0 0 6px;
+  color: #aa6b48;
+  font-size: 0.86rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.carritoClienteHeader h3 {
+  margin: 0;
+  color: #4b3427;
+  font-size: clamp(1.35rem, 2.6vw, 1.85rem);
+}
+
+.carritoEstadoChip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 9px 14px;
+  border-radius: 999px;
+  font-weight: 700;
+  text-transform: capitalize;
+  border: 1px solid transparent;
+  white-space: nowrap;
+}
+
+.carritoEstadoChip.estado-pendiente {
+  color: #8a5a2b;
+  background: rgba(226, 177, 112, 0.2);
+  border-color: rgba(226, 177, 112, 0.4);
+}
+
+.carritoEstadoChip.estado-pagado {
+  color: #1f7a3c;
+  background: rgba(47, 168, 79, 0.18);
+  border-color: rgba(47, 168, 79, 0.28);
+}
+
+.carritoEstadoChip.estado-cancelado {
+  color: #a22938;
+  background: rgba(193, 44, 60, 0.14);
+  border-color: rgba(193, 44, 60, 0.24);
+}
+
+.carritoClienteResumen {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  margin-bottom: 22px;
+}
+
+.carritoDato {
+  padding: 14px 16px;
+  border-radius: 16px;
+  background: rgba(255, 252, 247, 0.9);
+  border: 1px solid rgba(75, 52, 39, 0.08);
+}
+
+.carritoDatoLabel {
+  display: block;
+  margin-bottom: 8px;
+  color: #8e6e5d;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.carritoDato strong {
+  color: #4b3427;
+  font-size: 1.15rem;
+}
+
+.carritoDatoTotal {
+  background: linear-gradient(135deg, rgba(190, 109, 68, 0.14), rgba(255, 250, 245, 0.95));
+}
+
+.carritoCard p,
+.carritoDetalles p,
+.carritoItem p {
   margin: 4px 0;
   color: #5e4638;
 }
@@ -58,6 +165,173 @@
   border-radius: 10px;
   background: rgba(255, 250, 245, 0.9);
   border: 1px solid rgba(75, 52, 39, 0.08);
+}
+
+.carritoDetalles h4 {
+  margin: 12px 0 8px;
+}
+
+.carritoResumenUsuario {
+  margin-bottom: 10px;
+}
+
+.carritoItems {
+  display: grid;
+  gap: 8px;
+}
+
+.carritoItemsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 18px;
+}
+
+.carritoItem {
+  padding: 10px;
+  border-radius: 10px;
+  background: #fffdf9;
+  border: 1px solid rgba(75, 52, 39, 0.08);
+}
+
+.carritoProductoCard {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid rgba(75, 52, 39, 0.12);
+  border-radius: 18px;
+  background: linear-gradient(180deg, #ffffff 0%, #fff6ec 100%);
+  box-shadow: 0 12px 24px rgba(56, 37, 28, 0.12);
+  overflow: hidden;
+  transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
+}
+
+.carritoProductoCard:hover {
+  transform: translateY(-4px);
+  border-color: rgba(190, 109, 68, 0.34);
+  box-shadow: 0 18px 34px rgba(56, 37, 28, 0.16);
+}
+
+.carritoProductoImagenWrap {
+  background:
+    radial-gradient(circle at top left, rgba(190, 109, 68, 0.12), transparent 30%),
+    linear-gradient(180deg, #fffdfb 0%, #fff8f1 100%);
+}
+
+.carritoProductoImagen {
+  width: 100%;
+  height: 220px;
+  object-fit: contain;
+  padding: 16px;
+}
+
+.carritoProductoInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 16px 16px 12px;
+}
+
+.carritoProductoTop {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.carritoProductoInfo h5 {
+  margin: 0;
+  color: #4b3427;
+  font-size: 1.05rem;
+  line-height: 1.35;
+}
+
+.carritoProductoDescripcion {
+  margin: 0;
+  color: #6a5345;
+  line-height: 1.55;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.carritoCategoriaPill {
+  align-self: flex-start;
+  padding: 7px 11px;
+  border-radius: 999px;
+  background: rgba(79, 109, 93, 0.12);
+  color: #476a5b;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.carritoProductoMeta {
+  display: grid;
+  gap: 6px;
+  padding: 12px;
+  border-radius: 14px;
+  background: rgba(255, 251, 247, 0.88);
+  border: 1px solid rgba(75, 52, 39, 0.08);
+  color: #5f483b;
+}
+
+.carritoProductoMeta span:last-child {
+  color: #be6d44;
+  font-weight: 700;
+}
+
+.carritoProductoAcciones {
+  display: flex;
+  gap: 10px;
+  margin-top: auto;
+  padding: 0 16px 16px;
+}
+
+.btnCantidad,
+.btnEliminarDetalle {
+  flex: 1;
+  border: none;
+  border-radius: 12px;
+  color: #fff;
+  font-weight: 700;
+  padding: 12px 14px;
+  cursor: pointer;
+  box-shadow: 0 8px 14px rgba(75, 52, 39, 0.14);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+}
+
+.btnCantidad {
+  background: linear-gradient(135deg, #be6d44 0%, #d98c65 100%);
+}
+
+.btnEliminarDetalle {
+  background: linear-gradient(135deg, #c94a3a 0%, #ad2f2f 100%);
+}
+
+.btnCantidad:hover,
+.btnEliminarDetalle:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 18px rgba(75, 52, 39, 0.18);
+  filter: brightness(1.03);
+}
+
+.btnCantidad:disabled,
+.btnEliminarDetalle:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.carritoClienteFooter {
+  display: flex;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.carritoClienteFooter .btnComprar,
+.carritoClienteFooter .btnEliminarCarrito {
+  width: auto;
+  flex: 1;
+  margin-top: 0;
 }
 
 .btnDetalles,
@@ -93,11 +367,29 @@
   color: #fff;
 }
 
-.carritosEstado {
+.carritosEstado,
+.carritosMensaje {
   text-align: center;
   margin: 24px 0;
   font-weight: 600;
+}
+
+.carritosEstado {
   color: #5e4638;
+}
+
+.carritosMensaje {
+  color: #2a6f3b;
+}
+
+@media (max-width: 760px) {
+  .carritosLista {
+    grid-template-columns: 1fr;
+  }
+
+  .carritoClienteResumen {
+    grid-template-columns: 1fr;
+  }
 }
 
 @media (max-width: 640px) {
@@ -107,5 +399,18 @@
 
   .carritosPanel {
     padding: 22px 14px;
+  }
+
+  .carritoClienteHeader {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .carritoProductoAcciones {
+    flex-direction: column;
+  }
+
+  .carritoClienteFooter {
+    flex-direction: column;
   }
 }

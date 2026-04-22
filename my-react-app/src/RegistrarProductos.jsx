@@ -1,19 +1,23 @@
-import { useState, useEffect } from "react";
+﻿import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import api from "./Services/api";
 import "./RegistrarProductos.css";
 
+const initialProductForm = {
+  nombre: "",
+  precio: "",
+  descripcion: "",
+  imagen: "",
+  stock: "",
+  id_categoria: "",
+};
+
 function RegistrarProductos({ productoEditado, limpiarSeleccion, onActualizacionExitosa }) {
-  const [productos, setProductos] = useState({
-    nombre: "",
-    precio: "",
-    descripcion: "",
-    imagen: "",
-    stock: "",
-    id_categoria: "",
-  });
+  const [productos, setProductos] = useState(initialProductForm);
   const [categorias, setCategorias] = useState([]);
   const [mensaje, setMensaje] = useState("");
+
+  const resetForm = () => setProductos(initialProductForm);
 
   const handleChange = (e) => {
     setProductos({
@@ -33,14 +37,17 @@ function RegistrarProductos({ productoEditado, limpiarSeleccion, onActualizacion
         id_categoria: productoEditado.id_categoria || "",
       });
       setMensaje("");
+      return;
     }
+
+    resetForm();
   }, [productoEditado]);
 
   useEffect(() => {
     const obtenerCategorias = async () => {
       try {
         const response = await api.get("/categorias");
-        setCategorias(response.data);
+        setCategorias(Array.isArray(response.data) ? response.data : []);
       } catch (error) {
         console.error("Error al obtener categorias:", error);
       }
@@ -49,41 +56,39 @@ function RegistrarProductos({ productoEditado, limpiarSeleccion, onActualizacion
     obtenerCategorias();
   }, []);
 
-  const handSubmit = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
     try {
-      if (productoEditado && productoEditado.id) {
-        const response = await api.put(`/productos/${productoEditado.id}`, productos);
-        console.log("Producto actualizado:", response.data);
+      if (productoEditado?.id) {
+        await api.put(`/productos/${productoEditado.id}`, productos);
         setMensaje("Producto actualizado correctamente.");
         limpiarSeleccion();
+        onActualizacionExitosa("Producto actualizado correctamente.");
       } else {
-        const response = await api.post("/productos", productos);
-        console.log("Producto registrado:", response.data);
+        await api.post("/productos", productos);
         setMensaje("Producto registrado correctamente.");
+        onActualizacionExitosa("Producto registrado correctamente.");
       }
 
-      setProductos({
-        nombre: "",
-        precio: "",
-        descripcion: "",
-        imagen: "",
-        stock: "",
-        id_categoria: "",
-      });
-
-      onActualizacionExitosa();
+      resetForm();
     } catch (error) {
       console.error("Error al registrar o actualizar producto:", error);
-      setMensaje("No se pudo guardar el producto. Revisa los datos.");
+      setMensaje(error.response?.data?.mensaje || "No se pudo guardar el producto.");
     }
+  };
+
+  const cancelarEdicion = () => {
+    resetForm();
+    limpiarSeleccion();
+    setMensaje("Edicion cancelada.");
   };
 
   return (
     <div className="containerForm">
-      <h2>Registrar Productos</h2>
-      {mensaje && <p className="formMensaje">{mensaje}</p>}
-      <form onSubmit={handSubmit}>
+      <h2>{productoEditado ? "Editar Producto" : "Registrar Producto"}</h2>
+      {mensaje ? <p className="formMensaje">{mensaje}</p> : null}
+      <form onSubmit={handleSubmit}>
         <label>Nombre</label>
         <input
           type="text"
@@ -99,6 +104,7 @@ function RegistrarProductos({ productoEditado, limpiarSeleccion, onActualizacion
           value={productos.precio}
           onChange={handleChange}
           step="0.01"
+          min="0"
           required
         />
         <label>Descripcion</label>
@@ -140,9 +146,16 @@ function RegistrarProductos({ productoEditado, limpiarSeleccion, onActualizacion
           onChange={handleChange}
           required
         />
-        <button type="submit">
-          {productoEditado ? "Actualizar Producto" : "Registrar Producto"}
-        </button>
+        <div className="formAcciones">
+          <button type="submit">
+            {productoEditado ? "Actualizar Producto" : "Registrar Producto"}
+          </button>
+          {productoEditado ? (
+            <button type="button" className="btnSecundario" onClick={cancelarEdicion}>
+              Cancelar
+            </button>
+          ) : null}
+        </div>
       </form>
     </div>
   );

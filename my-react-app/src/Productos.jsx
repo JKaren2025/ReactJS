@@ -1,46 +1,110 @@
-import { useEffect, useState } from "react";
+﻿import { useEffect, useState } from "react";
 import api from "./Services/api";
 import "./Productos.css";
 import RegistrarProductos from "./RegistrarProductos";
 import { useAuth } from "./AuthContext";
 
-function Productos() {
-  const { isLoggedIn } = useAuth();
+function Productos({ chVista }) {
+  const { isLoggedIn, isAdmin } = useAuth();
   const [productoSeleccionado, setProductoSeleccionado] = useState(null);
   const [actualizarLista, setActualizarLista] = useState(0);
+  const [mensaje, setMensaje] = useState("");
+  const [error, setError] = useState("");
 
   const limpiarSeleccion = () => setProductoSeleccionado(null);
-  const onActualizacionExitosa = () => setActualizarLista((valor) => valor + 1);
+
+  const manejarActualizacionExitosa = (mensajeExito) => {
+    setActualizarLista((valor) => valor + 1);
+    setMensaje(mensajeExito || "Cambios guardados correctamente.");
+    setError("");
+    limpiarSeleccion();
+  };
+
+  const manejarAgregarCarrito = async (producto) => {
+    if (!isLoggedIn) {
+      if (typeof chVista === "function") {
+        chVista("Login");
+      }
+      return;
+    }
+
+    try {
+      await api.post("/carritos/agregar-producto", {
+        id_producto: producto.id,
+        cantidad: 1,
+      });
+
+      setError("");
+      setMensaje(`\"${producto.nombre}\" se agrego a tu carrito.`);
+    } catch (err) {
+      console.error("Error al agregar al carrito:", err);
+      setMensaje("");
+      setError(err.response?.data?.mensaje || "No se pudo agregar el producto al carrito.");
+    }
+  };
 
   return (
-    <div className="productoDiv">
-      {isLoggedIn ? <h1>Catalogo de Productos</h1> : null}
-      {isLoggedIn ? (
+    <section className="productoDiv">
+      <h1>{isAdmin ? "Gestion de Productos" : "Catalogo de Productos"}</h1>
+      <p className="productoSubtexto">
+        {isAdmin
+          ? "Como administrador puedes registrar, editar y eliminar productos del catalogo."
+          : "Explora los productos disponibles y agrega los que quieras a tu carrito."}
+      </p>
+
+      {mensaje ? <p className="productoMensaje">{mensaje}</p> : null}
+      {error ? <p className="productoError">{error}</p> : null}
+
+      {isAdmin ? (
         <RegistrarProductos
           productoEditado={productoSeleccionado}
           limpiarSeleccion={limpiarSeleccion}
-          onActualizacionExitosa={onActualizacionExitosa}
+          onActualizacionExitosa={manejarActualizacionExitosa}
         />
       ) : null}
-      <Producto
-        onEditar={setProductoSeleccionado}
+
+      <ProductoLista
+        onEditar={(producto) => {
+          setProductoSeleccionado(producto);
+          setMensaje("");
+          setError("");
+        }}
         actualizarLista={actualizarLista}
+        isAdmin={isAdmin}
         isLoggedIn={isLoggedIn}
+        onAgregarCarrito={manejarAgregarCarrito}
+        onEliminado={() => manejarActualizacionExitosa("Producto eliminado correctamente.")}
+        onError={(mensajeError) => {
+          setMensaje("");
+          setError(mensajeError);
+        }}
       />
-    </div>
+    </section>
   );
 }
 
-function Producto({ onEditar, actualizarLista, isLoggedIn }) {
+function ProductoLista({
+  onEditar,
+  actualizarLista,
+  isAdmin,
+  isLoggedIn,
+  onAgregarCarrito,
+  onEliminado,
+  onError,
+}) {
   const [productos, setProductos] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
 
   const obtenerProductos = async () => {
     try {
+      setLoading(true);
+      setError("");
       const response = await api.get("/productos");
-      setProductos(response.data);
-    } catch (error) {
-      console.error("Error al obtener productos:", error);
+      setProductos(Array.isArray(response.data) ? response.data : []);
+    } catch (err) {
+      console.error("Error al obtener productos:", err);
+      setError("No se pudieron cargar los productos.");
     } finally {
       setLoading(false);
     }
@@ -49,9 +113,13 @@ function Producto({ onEditar, actualizarLista, isLoggedIn }) {
   const removeProducto = async (id) => {
     try {
       await api.delete(`/productos/${id}`);
-      obtenerProductos();
-    } catch (error) {
-      console.error("Error al eliminar producto:", error);
+      await obtenerProductos();
+      onEliminado();
+    } catch (err) {
+      console.error("Error al eliminar producto:", err);
+      const mensajeError = err.response?.data?.mensaje || "No se pudo eliminar el producto.";
+      setError(mensajeError);
+      onError(mensajeError);
     }
   };
 
@@ -59,7 +127,17 @@ function Producto({ onEditar, actualizarLista, isLoggedIn }) {
     obtenerProductos();
   }, [actualizarLista]);
 
-  if (loading) return <p>Cargando...</p>;
+  if (loading) {
+    return <p className="productoEstado">Cargando productos...</p>;
+  }
+
+  if (error) {
+    return <p className="productoEstado">{error}</p>;
+  }
+
+  if (productos.length === 0) {
+    return <p className="productoEstado">No hay productos registrados.</p>;
+  }
 
   return (
     <section className="productosGrid">
@@ -71,13 +149,14 @@ function Producto({ onEditar, actualizarLista, isLoggedIn }) {
             alt={producto.nombre}
           />
           <h3>{producto.nombre}</h3>
-          <p>{producto.descripcion}</p>
-          <p>{producto.categoria?.nombre || `Categoria #${producto.id_categoria}`}</p>
-          <p>Stock: {producto.stock}</p>
+          <p className="productoDescripcion">{producto.descripcion}</p>
+          <p className="productoMeta">
+            Categoria: {producto.categoria?.nombre || `Categoria #${producto.id_categoria}`}
+          </p>
+          <p className="productoMeta">Stock: {producto.stock}</p>
           <p className="productoPrecio">${producto.precio}</p>
           <div className="productoBotones">
-            <button type="button" className="btnAnadir">Anadir</button>
-            {isLoggedIn ? (
+            {isAdmin ? (
               <>
                 <button
                   type="button"
@@ -94,7 +173,15 @@ function Producto({ onEditar, actualizarLista, isLoggedIn }) {
                   Eliminar
                 </button>
               </>
-            ) : null}
+            ) : (
+              <button
+                type="button"
+                className="btnAnadir"
+                onClick={() => onAgregarCarrito(producto)}
+              >
+                {isLoggedIn ? "Agregar al carrito" : "Inicia sesion para comprar"}
+              </button>
+            )}
           </div>
         </article>
       ))}

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+﻿import React, { useState } from "react";
 import api from "./Services/api";
 import "./Login.css";
 import { useAuth } from "./AuthContext";
@@ -9,7 +9,6 @@ const initialRegisterForm = {
   telefono: "",
   email: "",
   password: "",
-  rol: "cliente",
 };
 
 const Login = ({ chVista, onLoginSuccess }) => {
@@ -19,6 +18,11 @@ const Login = ({ chVista, onLoginSuccess }) => {
   const [password, setPassword] = useState("");
   const [registerForm, setRegisterForm] = useState(initialRegisterForm);
   const [mensaje, setMensaje] = useState("");
+
+  const cambiarModo = (nuevoModo) => {
+    setMensaje("");
+    setModo(nuevoModo);
+  };
 
   const handleLoginSubmit = async (e) => {
     e.preventDefault();
@@ -30,9 +34,7 @@ const Login = ({ chVista, onLoginSuccess }) => {
       const data = respuesta.data;
 
       if (data?.token) {
-        login(data.token);
-        console.log("Token recibido:", data.token);
-        alert("Autenticacion autorizada");
+        login(data.token, data.usuario);
         if (typeof onLoginSuccess === "function") {
           onLoginSuccess();
         }
@@ -40,11 +42,11 @@ const Login = ({ chVista, onLoginSuccess }) => {
           chVista("Inicio");
         }
       } else {
-        alert("Credenciales invalidas");
+        setMensaje("Credenciales invalidas.");
       }
     } catch (error) {
       console.error("Error en la autenticacion:", error);
-      alert("Error en la autenticacion");
+      setMensaje(error.response?.data?.mensaje || "Error en la autenticacion.");
     }
   };
 
@@ -65,14 +67,16 @@ const Login = ({ chVista, onLoginSuccess }) => {
         fecha_registro: new Date().toISOString(),
       });
 
-      setMensaje("Cuenta creada correctamente. Ahora inicia sesion.");
+      setMensaje("Cuenta cliente creada correctamente. Ahora inicia sesion.");
       setEmail(registerForm.email);
       setPassword("");
       setRegisterForm(initialRegisterForm);
       setModo("login");
     } catch (error) {
       console.error("Error al crear la cuenta:", error);
-      setMensaje("No se pudo crear la cuenta. Revisa los datos.");
+      setMensaje(
+        error.response?.data?.mensaje || "No se pudo crear la cuenta. Revisa los datos."
+      );
     }
   };
 
@@ -169,17 +173,6 @@ const Login = ({ chVista, onLoginSuccess }) => {
               onChange={handleRegisterChange}
               required
             />
-            <label htmlFor="register-rol">Rol</label>
-            <select
-              id="register-rol"
-              name="rol"
-              value={registerForm.rol}
-              onChange={handleRegisterChange}
-              required
-            >
-              <option value="cliente">cliente</option>
-              <option value="admin">admin</option>
-            </select>
             <button type="submit">Registrar cuenta</button>
           </form>
         )}
@@ -187,7 +180,7 @@ const Login = ({ chVista, onLoginSuccess }) => {
         <div className="loginOptions">
           {modo === "login" ? (
             <>
-              <button type="button" className="option" onClick={() => setModo("register")}>
+              <button type="button" className="option" onClick={() => cambiarModo("register")}>
                 Crear cuenta
               </button>
               <button type="button" className="option">
@@ -195,7 +188,7 @@ const Login = ({ chVista, onLoginSuccess }) => {
               </button>
             </>
           ) : (
-            <button type="button" className="option" onClick={() => setModo("login")}>
+            <button type="button" className="option" onClick={() => cambiarModo("login")}>
               Volver a iniciar sesion
             </button>
           )}
